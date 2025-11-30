@@ -1,354 +1,103 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>日系風作品集 — 我的個人網站</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王姳蓉的個人網頁</title>
   <style>
-    /* --------- 全域樣式（現代簡約日系） --------- */
-    :root{
-      --bg: #f6f4ef; /* 米白 */
-      --card: #fffdf9; /* 卡片底 */
-      --muted: #6b7b86; /* 次要文字 */
-      --accent: #9fb3b6; /* 淺灰綠 */
-      --accent-2: #e6b17a; /* 溫暖杏色 */
-      --soft-shadow: 0 6px 18px rgba(22,28,30,0.07);
-      --radius: 14px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:'Noto Sans TC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:#222}
+    /* 全域樣式 */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { line-height: 1.6; color: #333; }
+    a { text-decoration: none; color: inherit; }
 
-    /* header */
-    header.site-header{
-      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));
-      padding:48px 20px 28px;
-      text-align:center;
-      border-bottom-left-radius:24px;
-      border-bottom-right-radius:24px;
-      box-shadow: var(--soft-shadow);
-      margin:20px auto 0;
-      max-width:1100px;
-    }
-    .profile-wrap{display:flex;gap:22px;align-items:center;justify-content:flex-start;flex-wrap:wrap}
-    .avatar{
-      width:150px;height:150px;border-radius:50%;overflow:hidden;border:6px solid rgba(255,255,255,0.8);box-shadow:0 8px 20px rgba(0,0,0,0.08);object-fit:cover;
-    }
-    .hero-text{max-width:620px;text-align:left}
-    .hero-text h1{margin:6px 0;font-size:26px;color:#222}
-    .hero-text p{margin:6px 0;color:var(--muted)}
+    /* Header */
+    header { background: #4CAF50; color: white; padding: 20px 0; text-align: center; }
+    header nav a { margin: 0 15px; font-weight: bold; color: white; }
 
-    /* 導覽 */
-    nav.main-nav{margin-top:18px;display:flex;gap:18px;justify-content:center}
-    nav.main-nav a{padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:600}
-    nav.main-nav a.active{background:rgba(159,179,182,0.12);color:var(--accent)}
+    /* Section */
+    section { padding: 60px 20px; max-width: 1000px; margin: auto; }
+    h2 { text-align: center; margin-bottom: 40px; }
 
-    /* 版面 container */
-    .container{max-width:1100px;margin:28px auto;padding:0 20px}
-    section.page{background:var(--card);padding:28px;border-radius:var(--radius);box-shadow:var(--soft-shadow);margin-bottom:22px}
+    /* About */
+    .about { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .about img { border-radius: 50%; width: 200px; height: 200px; object-fit: cover; }
+    .about p { flex: 1; font-size: 1.1rem; }
 
-    h2{color:var(--accent);margin:0 0 12px;font-size:20px}
-    p.lead{color:var(--muted);margin:0 0 12px}
+    /* Skills */
+    .skills ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; list-style: none; }
+    .skills li { background: #f0f0f0; padding: 10px 20px; border-radius: 20px; }
 
-    /* 技能 */
-    .skills{display:flex;flex-wrap:wrap;gap:10px}
-    .skill-pill{background:rgba(159,179,182,0.12);padding:8px 12px;border-radius:999px;color:var(--accent);font-weight:700}
+    /* Portfolio */
+    .portfolio { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .portfolio img { width: 250px; height: 150px; object-fit: cover; border-radius: 10px; }
 
-    /* 作品集格子 */
-    .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{background:linear-gradient(180deg,#fff,#fffefc);border-radius:12px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,0.06);transition:transform .28s, box-shadow .28s}
-    .card:hover{transform:translateY(-8px);box-shadow:0 18px 36px rgba(12,16,18,0.08)}
-    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
-    .card h3{margin:10px 0 6px;font-size:16px}
-    .card p{margin:0;color:var(--muted);font-size:14px}
-    .card .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
-    .tag{background:rgba(230,177,122,0.12);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--accent-2);font-weight:700}
+    /* Contact */
+    .contact a { display: inline-block; margin: 10px; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px; }
 
-    /* 單欄響應 */
-    @media (max-width:920px){.portfolio-grid{grid-template-columns:repeat(2,1fr)}.hero-text{text-align:center}}
-    @media (max-width:560px){.portfolio-grid{grid-template-columns:1fr}.profile-wrap{flex-direction:column}.hero-text{text-align:center}}
-
-    /* 動畫：淡入與滑入（可重複使用） */
-    .fade-in{opacity:0;animation:fadeIn .9s ease forwards}
-    .slide-up{opacity:0;transform:translateY(18px);animation:slideUp .9s cubic-bezier(.2,.8,.2,1) forwards}
-    @keyframes fadeIn{to{opacity:1}}@keyframes slideUp{to{opacity:1;transform:none}}
-
-    /* footer */
-    footer.site-footer{text-align:center;color:var(--muted);padding:26px 12px;margin:20px auto;max-width:1100px}
-
-    /* 小按鈕 */
-    .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;background:var(--accent);color:white;font-weight:700}
-
-    /* 單專案頁面 */
-    .project-hero{display:flex;gap:20px;align-items:flex-start}
-    .project-hero img{width:360px;height:220px;object-fit:cover;border-radius:10px}
-    .project-meta{max-width:600px}
-
+    /* Footer */
+    footer { text-align: center; padding: 20px; background: #f4f4f4; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header fade-in" id="siteHeader">
-    <div class="profile-wrap">
-      <!-- 把 profile.jpg 換成你上傳的圖片檔名（預設 profile.jpg） -->
-      <div class="avatar" aria-hidden="true">
-        <!-- Inline SVG 小插畫（可直接修改顏色或替換） -->
-        <svg viewBox="0 0 200 200" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="插畫大頭貼">
-          <defs>
-            <linearGradient id="hair" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stop-color="#2d2a2f" />
-              <stop offset="100%" stop-color="#1f1c20" />
-            </linearGradient>
-            <linearGradient id="bg" x1="0" x2="1"><stop offset="0%" stop-color="#fff8ef"/><stop offset="100%" stop-color="#fff5e8"/></linearGradient>
-          </defs>
-
-          <!-- 背景圓 -->
-          <circle cx="100" cy="100" r="98" fill="url(#bg)" stroke="#efe6d9" stroke-width="2"/>
-
-          <!-- 髮型（改為馬尾） -->
-          <!-- 前髮（側分） -->
-          <path d="M55 80c20-28 45-40 70-28 18 8 28 24 30 40 2 20-8 34-22 40-20 8-54 2-70-18-10-12-12-26-8-34z" fill="url(#hair)" />
-
-          <!-- 馬尾（後方） -->
-          <!-- 耳罩式耳機 -->
-          <g id="headphones" stroke="#2a2a2a" stroke-width="3" fill="none">
-            <!-- 頭帶 -->
-            <path d="M60 70c20-40 60-40 80 0" stroke-linecap="round" />
-            <!-- 左耳罩 -->
-            <circle cx="60" cy="110" r="16" fill="#d9dde2" stroke="#2a2a2a" />
-            <circle cx="60" cy="110" r="10" fill="#bfc5cc" />
-            <!-- 右耳罩 -->
-            <circle cx="140" cy="110" r="16" fill="#d9dde2" stroke="#2a2a2a" />
-            <circle cx="140" cy="110" r="10" fill="#bfc5cc" />
-          </g>
-
-          <!-- 馬尾（後方） -->
-          <path d="M140 110c12 6 18 16 18 26s-6 20-16 22c-10 2-20-4-22-14-2-8 0-18 4-26 4-8 10-12 16-8z" fill="url(#hair)" opacity="0.95" />
-
-          <!-- 臉（更 Q 版：頭更大、臉更圓） -->
-          <ellipse cx="100" cy="112" rx="52" ry="50" fill="#ffe8d3" />
-
-          <!-- 頰紅（更大更可愛） -->
-          <ellipse cx="78" cy="126" rx="10" ry="7" fill="#f3b0a6" opacity="0.9" />
-          <ellipse cx="122" cy="126" rx="10" ry="7" fill="#f3b0a6" opacity="0.9" />
-          <ellipse cx="80" cy="120" rx="8" ry="5" fill="#f3b0a6" opacity="0.9" />
-          <ellipse cx="120" cy="120" rx="8" ry="5" fill="#f3b0a6" opacity="0.9" />
-
-          <!-- 眼睛（Q 版：大眼） -->
-          <g fill="#1f1f1f">
-            <ellipse cx="82" cy="110" rx="5" ry="7" />
-            <ellipse cx="118" cy="110" rx="5" ry="7" />
-          </g>
-
-          <!-- 眼鏡（移除，Q版更可愛） -->
-          <g fill="#1f1f1f">
-            <ellipse cx="82" cy="104" rx="3" ry="4" />
-            <ellipse cx="118" cy="104" rx="3" ry="4" />
-          </g>
-
-          <!-- 鼻子與嘴巴 -->
-          <path d="M100 112c2 3 4 3 6 3" stroke="#a66" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <path d="M92 126c4 6 12 6 16 0" stroke="#7a4a3a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.9"/>
-
-          <!-- 花朵裝飾 -->
-          <g transform="translate(138,138)">
-            <circle cx="0" cy="0" r="12" fill="#f6a8b4" />
-            <circle cx="18" cy="-6" r="10" fill="#f7c6a3" />
-            <circle cx="6" cy="12" r="8" fill="#cfe3d9" />
-          </g>
-
-        </svg>
-      </div>
-      <div class="hero-text">
-        <h1>王姳蓉（示範名稱）</h1>
-        <p class="lead">日系極簡風作品集｜前端開發 × 設計思維 × 微控制器專案</p>
-        <nav class="main-nav" aria-label="主要導覽">
-          <a href="#/" class="nav-link active">首頁</a>
-          <a href="#/about" class="nav-link">關於我</a>
-          <a href="#/portfolio" class="nav-link">作品集</a>
-          <a href="#/contact" class="nav-link">聯絡</a>
-        </nav>
-      </div>
-    </div>
+  <!-- Header -->
+  <header>
+    <h1>王姳蓉</h1>
+    <nav>
+      <a href="#about">關於我</a>
+      <a href="#skills">技能</a>
+      <a href="#portfolio">作品集</a>
+      <a href="#contact">聯絡我</a>
+    </nav>
   </header>
 
-  <main class="container">
+  <!-- About -->
+  <section id="about">
+    <h2>關於我</h2>
+    <div class="about">
+      <img src="your-avatar.jpg" alt="大頭照">
+      <p>大家好，我是王姳蓉，目前是資管系學生。對網頁設計與程式開發充滿熱情，喜歡將想法實現成作品，也樂於學習新技術。</p>
+    </div>
+  </section>
 
-    <!-- 多頁式內容（以 hash routing 呈現） -->
+  <!-- Skills -->
+  <section id="skills">
+    <h2>技能</h2>
+    <div class="skills">
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>Python</li>
+        <li>React</li>
+      </ul>
+    </div>
+  </section>
 
-    <section class="page" id="page-home">
-      <h2>歡迎來到我的作品集</h2>
-      <p class="lead">這裡展示我近期的專案、設計稿與互動練習。點選上方導覽或下方作品連結查看詳細內容。</p>
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <h2>作品集</h2>
+    <div class="portfolio">
+      <img src="project1.jpg" alt="作品1">
+      <img src="project2.jpg" alt="作品2">
+      <img src="project3.jpg" alt="作品3">
+    </div>
+  </section>
 
-      <div class="slide-up" style="margin-top:18px">
-        <h3 style="margin:0 0 10px">精選專案</h3>
-        <div class="portfolio-grid">
-          <article class="card fade-in">
-            <img src="https://picsum.photos/seed/p1/800/600" alt="作品 1 圖片">
-            <h3>智能植物監控器</h3>
-            <p>ESP32 + DHT11 的溫濕度顯示專案，透過 OLED 呈現與 LINE Notify 通知。</p>
-            <div class="tags"><span class="tag">ESP32</span><span class="tag">硬體</span></div>
-          </article>
+  <!-- Contact -->
+  <section id="contact">
+    <h2>聯絡我</h2>
+    <div class="contact">
+      <a href="mailto:example@email.com">電子郵件</a>
+      <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+    </div>
+  </section>
 
-          <article class="card fade-in" style="animation-delay:.08s">
-            <img src="https://picsum.photos/seed/p2/800/600" alt="作品 2 圖片">
-            <h3>日系風個人網站設計</h3>
-            <p>響應式網頁，含作品集、淡入動畫與簡單 CMS 範例。</p>
-            <div class="tags"><span class="tag">Web</span><span class="tag">設計</span></div>
-          </article>
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 王姳蓉 All Rights Reserved
+  </footer>
 
-          <article class="card fade-in" style="animation-delay:.16s">
-            <img src="https://picsum.photos/seed/p3/800/600" alt="作品 3 圖片">
-            <h3>互動原型：小遊戲 UI</h3>
-            <p>使用原型工具與 HTML/JS 製作的互動介面，包含鍵盤控制與音效。</p>
-            <div class="tags"><span class="tag">互動</span><span class="tag">Prototype</span></div>
-          </article>
-        </div>
-      </div>
-
-    </section>
-
-    <section class="page" id="page-about" style="display:none">
-      <h2>關於我</h2>
-      <p class="lead">我是一位熱愛將設計和程式結合的創作者，擅長前端實作與嵌入式系統。喜歡乾淨的視覺與溫暖的配色。</p>
-
-      <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:18px">
-        <div style="flex:1;min-width:260px">
-          <h3>經歷</h3>
-          <ul>
-            <li>前端實習工程師 — 某某科技（2023）</li>
-            <li>個人作品集與設計專案（持續中）</li>
-          </ul>
-        </div>
-        <div style="flex:1;min-width:260px">
-          <h3>技能</h3>
-          <div class="skills">
-            <span class="skill-pill">HTML</span>
-            <span class="skill-pill">CSS</span>
-            <span class="skill-pill">JavaScript</span>
-            <span class="skill-pill">Python</span>
-            <span class="skill-pill">ESP32</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="page" id="page-portfolio" style="display:none">
-      <h2>作品集（全部專案）</h2>
-      <p class="lead">點擊任一作品卡片即可查看詳細頁面</p>
-
-      <div class="portfolio-grid" style="margin-top:18px">
-        <!-- 卡片可連結到 #/project/slug -->
-        <article class="card" data-slug="smart-plant">
-          <img src="https://picsum.photos/seed/p4/800/600" alt="smart-plant">
-          <h3>智能植物監控器</h3>
-          <p>ESP32 + 感測器 + OLED 展示專案。</p>
-        </article>
-
-        <article class="card" data-slug="japanese-site">
-          <img src="https://picsum.photos/seed/p5/800/600" alt="japanese-site">
-          <h3>日系風個人網頁</h3>
-          <p>極簡風格、響應式網頁與動畫。</p>
-        </article>
-
-        <article class="card" data-slug="interactive-ui">
-          <img src="https://picsum.photos/seed/p6/800/600" alt="interactive-ui">
-          <h3>互動原型：小遊戲 UI</h3>
-          <p>Prototype 與 HTML/JS 製作的互動作品。</p>
-        </article>
-
-      </div>
-    </section>
-
-    <section class="page" id="page-project" style="display:none">
-      <article class="project-detail page" style="padding:20px">
-        <a href="#/portfolio" class="btn" style="margin-bottom:14px;display:inline-block">← 回作品集</a>
-        <div class="project-hero">
-          <img id="project-image" src="https://picsum.photos/seed/p7/800/600" alt="project image">
-          <div class="project-meta">
-            <h2 id="project-title">專案標題</h2>
-            <p id="project-desc">專案描述（範例）</p>
-            <div style="margin-top:12px"><strong>技術：</strong><span id="project-tech">ESP32 / HTML / CSS</span></div>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <section class="page" id="page-contact" style="display:none">
-      <h2>聯絡我</h2>
-      <p class="lead">歡迎透過 Email 或社群聯絡我，合作邀約也很歡迎。</p>
-      <p><strong>Email：</strong><a href="mailto:example@mail.com">example@mail.com</a></p>
-    </section>
-
-  </main>
-
-  <footer class="site-footer fade-in">© 2025 王姳蓉 · 日系風作品集</footer>
-
-  <script>
-    /* --- 簡單的 Hash Routing（單頁多頁式） --- */
-    const routes = {
-      '/': 'page-home',
-      '/about': 'page-about',
-      '/portfolio': 'page-portfolio',
-      '/contact': 'page-contact'
-    }
-
-    function showPage(id){
-      document.querySelectorAll('.page').forEach(el=>el.style.display='none');
-      const target = document.getElementById(id);
-      if(target) target.style.display='block';
-
-      // 更新 nav 樣式
-      document.querySelectorAll('.main-nav a').forEach(a=>a.classList.remove('active'));
-      const link = document.querySelector(`.main-nav a[href="#${location.hash.slice(1) || '/'}"]`);
-      if(link) link.classList.add('active');
-
-      // 小動畫：加入 slide-up / fade-in 的 class
-      target.querySelectorAll('.fade-in, .slide-up').forEach((el, i)=>{
-        el.style.animationDelay = (i*0.06) + 's';
-      });
-    }
-
-    function router(){
-      const hash = location.hash.replace('#','') || '/';
-      // 支援 /project/:slug
-      if(hash.startsWith('/project/')){
-        const slug = hash.replace('/project/','');
-        // 範例：根據 slug 填入資料（簡單示範）
-        const mapping = {
-          'smart-plant':{title:'智能植物監控器',desc:'ESP32 + DHT11 + OLED 的溫濕度監控與提醒系統',img:'https://picsum.photos/seed/p1/1200/800',tech:'ESP32 / MicroPython / OLED'},
-          'japanese-site':{title:'日系風個人網頁',desc:'作品集網站，包含響應式排版與日系配色',img:'https://picsum.photos/seed/p5/1200/800',tech:'HTML / CSS / JS'},
-          'interactive-ui':{title:'互動原型：小遊戲 UI',desc:'使用 HTML 與 JS 製作的互動原型',img:'https://picsum.photos/seed/p6/1200/800',tech:'HTML / JS / Prototype'}
-        }
-        const data = mapping[slug] || {title:'專案',desc:'專案說明',img:'https://picsum.photos/seed/p7/1200/800',tech:'—'};
-        document.getElementById('project-title').textContent = data.title;
-        document.getElementById('project-desc').textContent = data.desc;
-        document.getElementById('project-image').src = data.img;
-        document.getElementById('project-tech').textContent = data.tech;
-        showPage('page-project');
-        return;
-      }
-
-      const pageId = routes[hash] || 'page-home';
-      showPage(pageId);
-    }
-
-    // 初始
-    window.addEventListener('hashchange', router);
-    window.addEventListener('load', ()=>{
-      // 把 portfolio 卡片綁定點擊
-      document.querySelectorAll('#page-portfolio .card').forEach(card=>{
-        card.style.cursor='pointer';
-        card.addEventListener('click', ()=>{
-          const slug = card.dataset.slug;
-          if(slug) location.hash = '/project/' + slug;
-        })
-      })
-      router();
-    });
-
-    // 平滑滾動（小細節）
-    document.documentElement.style.scrollBehavior = 'smooth';
-  </script>
 </body>
 </html>
