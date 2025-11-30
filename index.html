@@ -1,343 +1,354 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, MapPin, Palette, Plane, Sparkles, Heart, Coffee } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日系風作品集 — 我的個人網站</title>
+  <style>
+    /* --------- 全域樣式（現代簡約日系） --------- */
+    :root{
+      --bg: #f6f4ef; /* 米白 */
+      --card: #fffdf9; /* 卡片底 */
+      --muted: #6b7b86; /* 次要文字 */
+      --accent: #9fb3b6; /* 淺灰綠 */
+      --accent-2: #e6b17a; /* 溫暖杏色 */
+      --soft-shadow: 0 6px 18px rgba(22,28,30,0.07);
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Noto Sans TC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:#222}
 
-export default function PersonalWebsite() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const [scrollY, setScrollY] = useState(0);
+    /* header */
+    header.site-header{
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));
+      padding:48px 20px 28px;
+      text-align:center;
+      border-bottom-left-radius:24px;
+      border-bottom-right-radius:24px;
+      box-shadow: var(--soft-shadow);
+      margin:20px auto 0;
+      max-width:1100px;
+    }
+    .profile-wrap{display:flex;gap:22px;align-items:center;justify-content:flex-start;flex-wrap:wrap}
+    .avatar{
+      width:150px;height:150px;border-radius:50%;overflow:hidden;border:6px solid rgba(255,255,255,0.8);box-shadow:0 8px 20px rgba(0,0,0,0.08);object-fit:cover;
+    }
+    .hero-text{max-width:620px;text-align:left}
+    .hero-text h1{margin:6px 0;font-size:26px;color:#222}
+    .hero-text p{margin:6px 0;color:var(--muted)}
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    /* 導覽 */
+    nav.main-nav{margin-top:18px;display:flex;gap:18px;justify-content:center}
+    nav.main-nav a{padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:600}
+    nav.main-nav a.active{background:rgba(159,179,182,0.12);color:var(--accent)}
 
-  const scrollToSection = (sectionId) => {
-    setActiveSection(sectionId);
-    setMenuOpen(false);
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-  };
+    /* 版面 container */
+    .container{max-width:1100px;margin:28px auto;padding:0 20px}
+    section.page{background:var(--card);padding:28px;border-radius:var(--radius);box-shadow:var(--soft-shadow);margin-bottom:22px}
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        .float-animation {
-          animation: float 3s ease-in-out infinite;
-        }
-        .fade-in-up {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-        .pulse-animation {
-          animation: pulse 2s ease-in-out infinite;
-        }
-        .slide-in {
-          animation: slideIn 0.6s ease-out forwards;
-        }
-        .hover-lift {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .hover-lift:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-      `}</style>
+    h2{color:var(--accent);margin:0 0 12px;font-size:20px}
+    p.lead{color:var(--muted);margin:0 0 12px}
 
-      {/* Floating Decorative Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div 
-          className="absolute top-20 left-10 w-32 h-32 bg-orange-200/20 rounded-full blur-3xl float-animation"
-          style={{ animationDelay: '0s' }}
-        />
-        <div 
-          className="absolute top-40 right-20 w-40 h-40 bg-rose-200/20 rounded-full blur-3xl float-animation"
-          style={{ animationDelay: '1s' }}
-        />
-        <div 
-          className="absolute bottom-40 left-1/4 w-36 h-36 bg-amber-200/20 rounded-full blur-3xl float-animation"
-          style={{ animationDelay: '2s' }}
-        />
+    /* 技能 */
+    .skills{display:flex;flex-wrap:wrap;gap:10px}
+    .skill-pill{background:rgba(159,179,182,0.12);padding:8px 12px;border-radius:999px;color:var(--accent);font-weight:700}
+
+    /* 作品集格子 */
+    .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:linear-gradient(180deg,#fff,#fffefc);border-radius:12px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,0.06);transition:transform .28s, box-shadow .28s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 36px rgba(12,16,18,0.08)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+    .card h3{margin:10px 0 6px;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+    .card .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:rgba(230,177,122,0.12);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--accent-2);font-weight:700}
+
+    /* 單欄響應 */
+    @media (max-width:920px){.portfolio-grid{grid-template-columns:repeat(2,1fr)}.hero-text{text-align:center}}
+    @media (max-width:560px){.portfolio-grid{grid-template-columns:1fr}.profile-wrap{flex-direction:column}.hero-text{text-align:center}}
+
+    /* 動畫：淡入與滑入（可重複使用） */
+    .fade-in{opacity:0;animation:fadeIn .9s ease forwards}
+    .slide-up{opacity:0;transform:translateY(18px);animation:slideUp .9s cubic-bezier(.2,.8,.2,1) forwards}
+    @keyframes fadeIn{to{opacity:1}}@keyframes slideUp{to{opacity:1;transform:none}}
+
+    /* footer */
+    footer.site-footer{text-align:center;color:var(--muted);padding:26px 12px;margin:20px auto;max-width:1100px}
+
+    /* 小按鈕 */
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;background:var(--accent);color:white;font-weight:700}
+
+    /* 單專案頁面 */
+    .project-hero{display:flex;gap:20px;align-items:flex-start}
+    .project-hero img{width:360px;height:220px;object-fit:cover;border-radius:10px}
+    .project-meta{max-width:600px}
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header fade-in" id="siteHeader">
+    <div class="profile-wrap">
+      <!-- 把 profile.jpg 換成你上傳的圖片檔名（預設 profile.jpg） -->
+      <div class="avatar" aria-hidden="true">
+        <!-- Inline SVG 小插畫（可直接修改顏色或替換） -->
+        <svg viewBox="0 0 200 200" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="插畫大頭貼">
+          <defs>
+            <linearGradient id="hair" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#2d2a2f" />
+              <stop offset="100%" stop-color="#1f1c20" />
+            </linearGradient>
+            <linearGradient id="bg" x1="0" x2="1"><stop offset="0%" stop-color="#fff8ef"/><stop offset="100%" stop-color="#fff5e8"/></linearGradient>
+          </defs>
+
+          <!-- 背景圓 -->
+          <circle cx="100" cy="100" r="98" fill="url(#bg)" stroke="#efe6d9" stroke-width="2"/>
+
+          <!-- 髮型（改為馬尾） -->
+          <!-- 前髮（側分） -->
+          <path d="M55 80c20-28 45-40 70-28 18 8 28 24 30 40 2 20-8 34-22 40-20 8-54 2-70-18-10-12-12-26-8-34z" fill="url(#hair)" />
+
+          <!-- 馬尾（後方） -->
+          <!-- 耳罩式耳機 -->
+          <g id="headphones" stroke="#2a2a2a" stroke-width="3" fill="none">
+            <!-- 頭帶 -->
+            <path d="M60 70c20-40 60-40 80 0" stroke-linecap="round" />
+            <!-- 左耳罩 -->
+            <circle cx="60" cy="110" r="16" fill="#d9dde2" stroke="#2a2a2a" />
+            <circle cx="60" cy="110" r="10" fill="#bfc5cc" />
+            <!-- 右耳罩 -->
+            <circle cx="140" cy="110" r="16" fill="#d9dde2" stroke="#2a2a2a" />
+            <circle cx="140" cy="110" r="10" fill="#bfc5cc" />
+          </g>
+
+          <!-- 馬尾（後方） -->
+          <path d="M140 110c12 6 18 16 18 26s-6 20-16 22c-10 2-20-4-22-14-2-8 0-18 4-26 4-8 10-12 16-8z" fill="url(#hair)" opacity="0.95" />
+
+          <!-- 臉（更 Q 版：頭更大、臉更圓） -->
+          <ellipse cx="100" cy="112" rx="52" ry="50" fill="#ffe8d3" />
+
+          <!-- 頰紅（更大更可愛） -->
+          <ellipse cx="78" cy="126" rx="10" ry="7" fill="#f3b0a6" opacity="0.9" />
+          <ellipse cx="122" cy="126" rx="10" ry="7" fill="#f3b0a6" opacity="0.9" />
+          <ellipse cx="80" cy="120" rx="8" ry="5" fill="#f3b0a6" opacity="0.9" />
+          <ellipse cx="120" cy="120" rx="8" ry="5" fill="#f3b0a6" opacity="0.9" />
+
+          <!-- 眼睛（Q 版：大眼） -->
+          <g fill="#1f1f1f">
+            <ellipse cx="82" cy="110" rx="5" ry="7" />
+            <ellipse cx="118" cy="110" rx="5" ry="7" />
+          </g>
+
+          <!-- 眼鏡（移除，Q版更可愛） -->
+          <g fill="#1f1f1f">
+            <ellipse cx="82" cy="104" rx="3" ry="4" />
+            <ellipse cx="118" cy="104" rx="3" ry="4" />
+          </g>
+
+          <!-- 鼻子與嘴巴 -->
+          <path d="M100 112c2 3 4 3 6 3" stroke="#a66" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <path d="M92 126c4 6 12 6 16 0" stroke="#7a4a3a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.9"/>
+
+          <!-- 花朵裝飾 -->
+          <g transform="translate(138,138)">
+            <circle cx="0" cy="0" r="12" fill="#f6a8b4" />
+            <circle cx="18" cy="-6" r="10" fill="#f7c6a3" />
+            <circle cx="6" cy="12" r="8" fill="#cfe3d9" />
+          </g>
+
+        </svg>
+      </div>
+      <div class="hero-text">
+        <h1>王姳蓉（示範名稱）</h1>
+        <p class="lead">日系極簡風作品集｜前端開發 × 設計思維 × 微控制器專案</p>
+        <nav class="main-nav" aria-label="主要導覽">
+          <a href="#/" class="nav-link active">首頁</a>
+          <a href="#/about" class="nav-link">關於我</a>
+          <a href="#/portfolio" class="nav-link">作品集</a>
+          <a href="#/contact" class="nav-link">聯絡</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- 多頁式內容（以 hash routing 呈現） -->
+
+    <section class="page" id="page-home">
+      <h2>歡迎來到我的作品集</h2>
+      <p class="lead">這裡展示我近期的專案、設計稿與互動練習。點選上方導覽或下方作品連結查看詳細內容。</p>
+
+      <div class="slide-up" style="margin-top:18px">
+        <h3 style="margin:0 0 10px">精選專案</h3>
+        <div class="portfolio-grid">
+          <article class="card fade-in">
+            <img src="https://picsum.photos/seed/p1/800/600" alt="作品 1 圖片">
+            <h3>智能植物監控器</h3>
+            <p>ESP32 + DHT11 的溫濕度顯示專案，透過 OLED 呈現與 LINE Notify 通知。</p>
+            <div class="tags"><span class="tag">ESP32</span><span class="tag">硬體</span></div>
+          </article>
+
+          <article class="card fade-in" style="animation-delay:.08s">
+            <img src="https://picsum.photos/seed/p2/800/600" alt="作品 2 圖片">
+            <h3>日系風個人網站設計</h3>
+            <p>響應式網頁，含作品集、淡入動畫與簡單 CMS 範例。</p>
+            <div class="tags"><span class="tag">Web</span><span class="tag">設計</span></div>
+          </article>
+
+          <article class="card fade-in" style="animation-delay:.16s">
+            <img src="https://picsum.photos/seed/p3/800/600" alt="作品 3 圖片">
+            <h3>互動原型：小遊戲 UI</h3>
+            <p>使用原型工具與 HTML/JS 製作的互動介面，包含鍵盤控制與音效。</p>
+            <div class="tags"><span class="tag">互動</span><span class="tag">Prototype</span></div>
+          </article>
+        </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/70 backdrop-blur-md z-50 shadow-sm border-b border-orange-100">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-orange-800 tracking-wider">
-            WMJ
-          </h1>
-          
-          {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8">
-            {['home', 'about', 'portfolio', 'life', 'contact'].map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className={`capitalize transition-all font-medium ${
-                  activeSection === section
-                    ? 'text-orange-600'
-                    : 'text-amber-800 hover:text-orange-500'
-                }`}
-              >
-                {section === 'home' ? '首頁' : section === 'about' ? '關於我' : section === 'portfolio' ? '作品集' : section === 'life' ? '生活分享' : '聯絡'}
-              </button>
-            ))}
-          </div>
+    </section>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-orange-800"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X /> : <Menu />}
-          </button>
+    <section class="page" id="page-about" style="display:none">
+      <h2>關於我</h2>
+      <p class="lead">我是一位熱愛將設計和程式結合的創作者，擅長前端實作與嵌入式系統。喜歡乾淨的視覺與溫暖的配色。</p>
+
+      <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:18px">
+        <div style="flex:1;min-width:260px">
+          <h3>經歷</h3>
+          <ul>
+            <li>前端實習工程師 — 某某科技（2023）</li>
+            <li>個人作品集與設計專案（持續中）</li>
+          </ul>
         </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="md:hidden bg-white/90 backdrop-blur-md border-t border-orange-100">
-            {['home', 'about', 'portfolio', 'life', 'contact'].map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className="block w-full text-left px-6 py-3 text-amber-800 hover:bg-orange-50 transition-colors"
-              >
-                {section === 'home' ? '首頁' : section === 'about' ? '關於我' : section === 'portfolio' ? '作品集' : section === 'life' ? '生活分享' : '聯絡'}
-              </button>
-            ))}
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center pt-20 px-6 relative">
-        <div className="text-center max-w-4xl fade-in-up">
-          <div className="mb-8 inline-block">
-            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-orange-200 to-rose-200 mx-auto flex items-center justify-center shadow-2xl float-animation">
-              <span className="text-5xl font-bold text-orange-800">WMJ</span>
-            </div>
-          </div>
-          <h2 className="text-6xl md:text-8xl font-light mb-4 text-orange-900 tracking-wide">
-            王姳蓉
-          </h2>
-          <p className="text-2xl md:text-3xl text-amber-700 mb-6 font-light">
-            Wang Ming Jung
-          </p>
-          <p className="text-lg text-amber-600 mb-8 max-w-2xl mx-auto leading-relaxed font-light">
-            ENTP | 用畫筆捕捉世界的溫度
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <span className="px-6 py-3 bg-white/60 backdrop-blur-sm text-orange-700 rounded-full text-sm font-medium shadow-md hover-lift">
-              🎨 藝術創作者
-            </span>
-            <span className="px-6 py-3 bg-white/60 backdrop-blur-sm text-orange-700 rounded-full text-sm font-medium shadow-md hover-lift">
-              ✈️ 旅行愛好者
-            </span>
-            <span className="px-6 py-3 bg-white/60 backdrop-blur-sm text-orange-700 rounded-full text-sm font-medium shadow-md hover-lift">
-              🌏 交換學生準備中
-            </span>
+        <div style="flex:1;min-width:260px">
+          <h3>技能</h3>
+          <div class="skills">
+            <span class="skill-pill">HTML</span>
+            <span class="skill-pill">CSS</span>
+            <span class="skill-pill">JavaScript</span>
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">ESP32</span>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center py-20 px-6 bg-white/40 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-5xl font-light mb-16 text-center text-orange-900">
-            關於我
-          </h3>
-          
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover-lift slide-in" style={{ animationDelay: '0.1s' }}>
-                <div className="flex items-start gap-4">
-                  <div className="bg-orange-100 p-3 rounded-2xl">
-                    <Sparkles className="text-orange-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-lg mb-3 text-orange-900">ENTP 性格特質</h4>
-                    <p className="text-amber-700 leading-relaxed font-light">充滿好奇心和創造力，喜歡探索新想法和可能性。熱衷於挑戰常規，用獨特視角看待世界。</p>
-                  </div>
-                </div>
-              </div>
+    <section class="page" id="page-portfolio" style="display:none">
+      <h2>作品集（全部專案）</h2>
+      <p class="lead">點擊任一作品卡片即可查看詳細頁面</p>
 
-              <div className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover-lift slide-in" style={{ animationDelay: '0.2s' }}>
-                <div className="flex items-start gap-4">
-                  <div className="bg-rose-100 p-3 rounded-2xl">
-                    <Palette className="text-rose-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-lg mb-3 text-orange-900">藝術與繪畫</h4>
-                    <p className="text-amber-700 leading-relaxed font-light">用色彩和線條表達內心世界，每一幅作品都是情感的流動和想像的具現化。</p>
-                  </div>
-                </div>
-              </div>
+      <div class="portfolio-grid" style="margin-top:18px">
+        <!-- 卡片可連結到 #/project/slug -->
+        <article class="card" data-slug="smart-plant">
+          <img src="https://picsum.photos/seed/p4/800/600" alt="smart-plant">
+          <h3>智能植物監控器</h3>
+          <p>ESP32 + 感測器 + OLED 展示專案。</p>
+        </article>
 
-              <div className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover-lift slide-in" style={{ animationDelay: '0.3s' }}>
-                <div className="flex items-start gap-4">
-                  <div className="bg-amber-100 p-3 rounded-2xl">
-                    <Plane className="text-amber-600" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-lg mb-3 text-orange-900">旅行與探索</h4>
-                    <p className="text-amber-700 leading-relaxed font-light">相信每一次旅行都是自我發現的旅程。正在為出國交換做準備，期待在異國文化中成長。</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <article class="card" data-slug="japanese-site">
+          <img src="https://picsum.photos/seed/p5/800/600" alt="japanese-site">
+          <h3>日系風個人網頁</h3>
+          <p>極簡風格、響應式網頁與動畫。</p>
+        </article>
 
-            <div className="space-y-6">
-              <div className="bg-gradient-to-br from-orange-300 to-rose-300 p-10 rounded-3xl text-white shadow-2xl hover-lift">
-                <Coffee className="mb-4" size={32} />
-                <h4 className="text-2xl font-medium mb-4">短期目標</h4>
-                <p className="text-lg leading-relaxed font-light">
-                  準備出國交換計畫，希望能在不同的文化環境中拓展視野、提升語言能力，並將旅途中的靈感融入創作。
-                </p>
-              </div>
+        <article class="card" data-slug="interactive-ui">
+          <img src="https://picsum.photos/seed/p6/800/600" alt="interactive-ui">
+          <h3>互動原型：小遊戲 UI</h3>
+          <p>Prototype 與 HTML/JS 製作的互動作品。</p>
+        </article>
 
-              <div className="bg-white/80 backdrop-blur-sm p-10 rounded-3xl shadow-lg hover-lift">
-                <Heart className="text-orange-500 mb-4" size={32} />
-                <h4 className="text-xl font-medium mb-4 text-orange-900">個人理念</h4>
-                <p className="text-amber-700 leading-relaxed italic font-light">
-                  "生活就像一幅未完成的畫作，每一天都是新的一筆。我用旅行收集色彩，用繪畫記錄心情，用好奇心探索無限可能。"
-                </p>
-              </div>
-            </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-project" style="display:none">
+      <article class="project-detail page" style="padding:20px">
+        <a href="#/portfolio" class="btn" style="margin-bottom:14px;display:inline-block">← 回作品集</a>
+        <div class="project-hero">
+          <img id="project-image" src="https://picsum.photos/seed/p7/800/600" alt="project image">
+          <div class="project-meta">
+            <h2 id="project-title">專案標題</h2>
+            <p id="project-desc">專案描述（範例）</p>
+            <div style="margin-top:12px"><strong>技術：</strong><span id="project-tech">ESP32 / HTML / CSS</span></div>
           </div>
         </div>
-      </section>
+      </article>
+    </section>
 
-      {/* Portfolio Section */}
-      <section id="portfolio" className="min-h-screen py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-5xl font-light mb-16 text-center text-orange-900">
-            作品集
-          </h3>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { color: 'from-orange-200 to-amber-200' },
-              { color: 'from-rose-200 to-pink-200' },
-              { color: 'from-amber-200 to-yellow-200' },
-              { color: 'from-orange-200 to-rose-200' },
-              { color: 'from-amber-200 to-orange-200' },
-              { color: 'from-rose-200 to-orange-200' },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-3xl shadow-lg hover-lift"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className={`aspect-square bg-gradient-to-br ${item.color} flex items-center justify-center`}>
-                  <Palette className="text-white/40 group-hover:scale-110 transition-transform duration-300" size={64} />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                  <div className="p-6 text-white">
-                    <h4 className="font-medium text-lg mb-1">作品 {index + 1}</h4>
-                    <p className="text-sm text-white/80 font-light">創作描述與靈感來源</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <section class="page" id="page-contact" style="display:none">
+      <h2>聯絡我</h2>
+      <p class="lead">歡迎透過 Email 或社群聯絡我，合作邀約也很歡迎。</p>
+      <p><strong>Email：</strong><a href="mailto:example@mail.com">example@mail.com</a></p>
+    </section>
 
-      {/* Life Section */}
-      <section id="life" className="min-h-screen py-20 px-6 bg-white/40 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-5xl font-light mb-16 text-center text-orange-900">
-            生活分享
-          </h3>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              { title: '東京街頭速寫', location: '日本東京', color: 'from-orange-300 to-amber-300' },
-              { title: '巴黎夕陽時刻', location: '法國巴黎', color: 'from-rose-300 to-pink-300' },
-              { title: '峇里島海灘寫生', location: '印尼峇里島', color: 'from-amber-300 to-yellow-300' },
-              { title: '首爾咖啡廳日常', location: '韓國首爾', color: 'from-orange-300 to-rose-300' },
-            ].map((post, index) => (
-              <div
-                key={index}
-                className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg overflow-hidden hover-lift"
-              >
-                <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center relative overflow-hidden`}>
-                  <MapPin className="text-white/60 float-animation" size={48} />
-                </div>
-                <div className="p-8">
-                  <h4 className="text-xl font-medium mb-2 text-orange-900">{post.title}</h4>
-                  <p className="text-amber-600 text-sm mb-4 flex items-center gap-2 font-light">
-                    <MapPin size={16} />
-                    {post.location}
-                  </p>
-                  <p className="text-amber-700 leading-relaxed font-light">
-                    記錄旅途中的美好瞬間，每個地方都有獨特的故事和色彩等待被發現...
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+  </main>
 
-      {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex items-center py-20 px-6">
-        <div className="max-w-4xl mx-auto w-full text-center">
-          <h3 className="text-5xl font-light mb-16 text-orange-900">
-            聯絡我
-          </h3>
-          
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-12 hover-lift">
-            <p className="text-xl text-amber-700 mb-10 leading-relaxed font-light">
-              如果你對我的作品感興趣，或想要交流藝術、旅行的心得，<br />歡迎隨時與我聯繫！
-            </p>
-            
-            <div className="space-y-4 max-w-md mx-auto">
-              <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-6 rounded-2xl hover-lift">
-                <p className="text-amber-600 font-light">📧 Email</p>
-                <p className="font-medium text-orange-900">wmj.wang@example.com</p>
-              </div>
-              
-              <div className="bg-gradient-to-r from-rose-50 to-pink-50 p-6 rounded-2xl hover-lift">
-                <p className="text-amber-600 font-light">📱 Instagram</p>
-                <p className="font-medium text-orange-900">@wmj_art</p>
-              </div>
-            </div>
+  <footer class="site-footer fade-in">© 2025 王姳蓉 · 日系風作品集</footer>
 
-            <div className="mt-10 pt-8 border-t border-orange-200">
-              <p className="text-amber-600 text-sm font-light">
-                © 2024 WMJ · Wang Yi-Rong. 用心創作，用愛分享。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+  <script>
+    /* --- 簡單的 Hash Routing（單頁多頁式） --- */
+    const routes = {
+      '/': 'page-home',
+      '/about': 'page-about',
+      '/portfolio': 'page-portfolio',
+      '/contact': 'page-contact'
+    }
+
+    function showPage(id){
+      document.querySelectorAll('.page').forEach(el=>el.style.display='none');
+      const target = document.getElementById(id);
+      if(target) target.style.display='block';
+
+      // 更新 nav 樣式
+      document.querySelectorAll('.main-nav a').forEach(a=>a.classList.remove('active'));
+      const link = document.querySelector(`.main-nav a[href="#${location.hash.slice(1) || '/'}"]`);
+      if(link) link.classList.add('active');
+
+      // 小動畫：加入 slide-up / fade-in 的 class
+      target.querySelectorAll('.fade-in, .slide-up').forEach((el, i)=>{
+        el.style.animationDelay = (i*0.06) + 's';
+      });
+    }
+
+    function router(){
+      const hash = location.hash.replace('#','') || '/';
+      // 支援 /project/:slug
+      if(hash.startsWith('/project/')){
+        const slug = hash.replace('/project/','');
+        // 範例：根據 slug 填入資料（簡單示範）
+        const mapping = {
+          'smart-plant':{title:'智能植物監控器',desc:'ESP32 + DHT11 + OLED 的溫濕度監控與提醒系統',img:'https://picsum.photos/seed/p1/1200/800',tech:'ESP32 / MicroPython / OLED'},
+          'japanese-site':{title:'日系風個人網頁',desc:'作品集網站，包含響應式排版與日系配色',img:'https://picsum.photos/seed/p5/1200/800',tech:'HTML / CSS / JS'},
+          'interactive-ui':{title:'互動原型：小遊戲 UI',desc:'使用 HTML 與 JS 製作的互動原型',img:'https://picsum.photos/seed/p6/1200/800',tech:'HTML / JS / Prototype'}
+        }
+        const data = mapping[slug] || {title:'專案',desc:'專案說明',img:'https://picsum.photos/seed/p7/1200/800',tech:'—'};
+        document.getElementById('project-title').textContent = data.title;
+        document.getElementById('project-desc').textContent = data.desc;
+        document.getElementById('project-image').src = data.img;
+        document.getElementById('project-tech').textContent = data.tech;
+        showPage('page-project');
+        return;
+      }
+
+      const pageId = routes[hash] || 'page-home';
+      showPage(pageId);
+    }
+
+    // 初始
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', ()=>{
+      // 把 portfolio 卡片綁定點擊
+      document.querySelectorAll('#page-portfolio .card').forEach(card=>{
+        card.style.cursor='pointer';
+        card.addEventListener('click', ()=>{
+          const slug = card.dataset.slug;
+          if(slug) location.hash = '/project/' + slug;
+        })
+      })
+      router();
+    });
+
+    // 平滑滾動（小細節）
+    document.documentElement.style.scrollBehavior = 'smooth';
+  </script>
+</body>
+</html>
