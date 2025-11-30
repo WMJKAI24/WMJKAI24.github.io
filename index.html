@@ -12,7 +12,7 @@
       --muted: #6b7b86; /* 次要文字 */
       --accent: #9fb3b6; /* 淺灰綠 */
       --accent-2: #e6b17a; /* 溫暖杏色 */
-      --soft-shadow: 0 4px 12px rgba(22,28,30,0.05); /* 陰影變得更淺 */
+      --soft-shadow: 0 6px 18px rgba(22,28,30,0.07);
       --radius: 14px;
     }
     *{box-sizing:border-box}
@@ -30,7 +30,9 @@
       max-width:1100px;
     }
     .profile-wrap{display:flex;gap:22px;align-items:center;justify-content:flex-start;flex-wrap:wrap}
-    /* .avatar 樣式已移除，因為頭像已刪除 */
+    .avatar{
+      width:150px;height:150px;border-radius:50%;overflow:hidden;border:6px solid rgba(255,255,255,0.8);box-shadow:0 8px 20px rgba(0,0,0,0.08);object-fit:cover;
+    }
     .hero-text{max-width:620px;text-align:left}
     .hero-text h1{margin:6px 0;font-size:26px;color:#222}
     .hero-text p{margin:6px 0;color:var(--muted)}
@@ -53,18 +55,8 @@
 
     /* 作品集格子 */
     .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{
-      background:linear-gradient(180deg,#fff,#fffefc);
-      border-radius:12px;
-      padding:16px;
-      border:1px solid #f0eee8; /* 新增極細邊框，增添質感 */
-      box-shadow:0 6px 16px rgba(0,0,0,0.04); /* 使用更輕的陰影 */
-      transition:transform .35s, box-shadow .35s; /* 增加過渡時間讓動畫更柔和 */
-    }
-    .card:hover{
-      transform:translateY(-4px); /* 輕微上浮 */
-      box-shadow:0 12px 24px rgba(12,16,18,0.06); /* 稍微增加陰影，但仍保持輕盈 */
-    }
+    .card{background:linear-gradient(180deg,#fff,#fffefc);border-radius:12px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,0.06);transition:transform .28s, box-shadow .28s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 36px rgba(12,16,18,0.08)}
     .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
     .card h3{margin:10px 0 6px;font-size:16px}
     .card p{margin:0;color:var(--muted);font-size:14px}
@@ -91,27 +83,84 @@
     .project-hero img{width:360px;height:220px;object-fit:cover;border-radius:10px}
     .project-meta{max-width:600px}
 
-    /* 返回頂部按鈕 */
-    .back-to-top{
-      position:fixed;right:25px;bottom:25px;
-      width:40px;height:40px;border-radius:50%;
-      background:var(--accent);color:white;
-      border:none;cursor:pointer;opacity:0;
-      transition:opacity .3s, transform .3s;
-      display:flex;align-items:center;justify-content:center;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      transform:translateY(10px);
-      z-index: 1000; /* 確保按鈕在最上層 */
-    }
-    .back-to-top.show{opacity:1;transform:translateY(0)}
-    .back-to-top:hover{background:#779396} /* 深一點的淺灰綠 */
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header class="site-header fade-in" id="siteHeader">
     <div class="profile-wrap">
-      <div class="hero-text" style="width: 100%; text-align: center;"> <h1>王姳蓉（示範名稱）</h1>
+      <!-- 把 profile.jpg 換成你上傳的圖片檔名（預設 profile.jpg） -->
+      <div class="avatar" aria-hidden="true">
+        <!-- Inline SVG 小插畫（可直接修改顏色或替換） -->
+        <svg viewBox="0 0 200 200" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="插畫大頭貼">
+          <defs>
+            <linearGradient id="hair" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#2d2a2f" />
+              <stop offset="100%" stop-color="#1f1c20" />
+            </linearGradient>
+            <linearGradient id="bg" x1="0" x2="1"><stop offset="0%" stop-color="#fff8ef"/><stop offset="100%" stop-color="#fff5e8"/></linearGradient>
+          </defs>
+
+          <!-- 背景圓 -->
+          <circle cx="100" cy="100" r="98" fill="url(#bg)" stroke="#efe6d9" stroke-width="2"/>
+
+          <!-- 髮型（改為馬尾） -->
+          <!-- 前髮（側分） -->
+          <path d="M55 80c20-28 45-40 70-28 18 8 28 24 30 40 2 20-8 34-22 40-20 8-54 2-70-18-10-12-12-26-8-34z" fill="url(#hair)" />
+
+          <!-- 馬尾（後方） -->
+          <!-- 耳罩式耳機 -->
+          <g id="headphones" stroke="#2a2a2a" stroke-width="3" fill="none">
+            <!-- 頭帶 -->
+            <path d="M60 70c20-40 60-40 80 0" stroke-linecap="round" />
+            <!-- 左耳罩 -->
+            <circle cx="60" cy="110" r="16" fill="#d9dde2" stroke="#2a2a2a" />
+            <circle cx="60" cy="110" r="10" fill="#bfc5cc" />
+            <!-- 右耳罩 -->
+            <circle cx="140" cy="110" r="16" fill="#d9dde2" stroke="#2a2a2a" />
+            <circle cx="140" cy="110" r="10" fill="#bfc5cc" />
+          </g>
+
+          <!-- 馬尾（後方） -->
+          <path d="M140 110c12 6 18 16 18 26s-6 20-16 22c-10 2-20-4-22-14-2-8 0-18 4-26 4-8 10-12 16-8z" fill="url(#hair)" opacity="0.95" />
+
+          <!-- 臉（更 Q 版：頭更大、臉更圓） -->
+          <ellipse cx="100" cy="112" rx="52" ry="50" fill="#ffe8d3" />
+
+          <!-- 頰紅（更大更可愛） -->
+          <ellipse cx="78" cy="126" rx="10" ry="7" fill="#f3b0a6" opacity="0.9" />
+          <ellipse cx="122" cy="126" rx="10" ry="7" fill="#f3b0a6" opacity="0.9" />
+          <ellipse cx="80" cy="120" rx="8" ry="5" fill="#f3b0a6" opacity="0.9" />
+          <ellipse cx="120" cy="120" rx="8" ry="5" fill="#f3b0a6" opacity="0.9" />
+
+          <!-- 眼睛（Q 版：大眼） -->
+          <g fill="#1f1f1f">
+            <ellipse cx="82" cy="110" rx="5" ry="7" />
+            <ellipse cx="118" cy="110" rx="5" ry="7" />
+          </g>
+
+          <!-- 眼鏡（移除，Q版更可愛） -->
+          <g fill="#1f1f1f">
+            <ellipse cx="82" cy="104" rx="3" ry="4" />
+            <ellipse cx="118" cy="104" rx="3" ry="4" />
+          </g>
+
+          <!-- 鼻子與嘴巴 -->
+          <path d="M100 112c2 3 4 3 6 3" stroke="#a66" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <path d="M92 126c4 6 12 6 16 0" stroke="#7a4a3a" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.9"/>
+
+          <!-- 花朵裝飾 -->
+          <g transform="translate(138,138)">
+            <circle cx="0" cy="0" r="12" fill="#f6a8b4" />
+            <circle cx="18" cy="-6" r="10" fill="#f7c6a3" />
+            <circle cx="6" cy="12" r="8" fill="#cfe3d9" />
+          </g>
+
+        </svg>
+      </div>
+      <div class="hero-text">
+        <h1>王姳蓉（示範名稱）</h1>
         <p class="lead">日系極簡風作品集｜前端開發 × 設計思維 × 微控制器專案</p>
         <nav class="main-nav" aria-label="主要導覽">
           <a href="#/" class="nav-link active">首頁</a>
@@ -124,6 +173,8 @@
   </header>
 
   <main class="container">
+
+    <!-- 多頁式內容（以 hash routing 呈現） -->
 
     <section class="page" id="page-home">
       <h2>歡迎來到我的作品集</h2>
@@ -187,6 +238,7 @@
       <p class="lead">點擊任一作品卡片即可查看詳細頁面</p>
 
       <div class="portfolio-grid" style="margin-top:18px">
+        <!-- 卡片可連結到 #/project/slug -->
         <article class="card" data-slug="smart-plant">
           <img src="https://picsum.photos/seed/p4/800/600" alt="smart-plant">
           <h3>智能植物監控器</h3>
@@ -202,7 +254,7 @@
         <article class="card" data-slug="interactive-ui">
           <img src="https://picsum.photos/seed/p6/800/600" alt="interactive-ui">
           <h3>互動原型：小遊戲 UI</h3>
-          <p>使用 HTML 與 JS 製作的互動作品。</p>
+          <p>Prototype 與 HTML/JS 製作的互動作品。</p>
         </article>
 
       </div>
@@ -231,13 +283,6 @@
   </main>
 
   <footer class="site-footer fade-in">© 2025 王姳蓉 · 日系風作品集</footer>
-
-  <button class="back-to-top" id="backToTop" aria-label="返回頂部">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="12 19 12 5"></polyline>
-      <polyline points="5 12 12 5 19 12"></polyline>
-    </svg>
-  </button>
 
   <script>
     /* --- 簡單的 Hash Routing（單頁多頁式） --- */
@@ -291,12 +336,6 @@
     // 初始
     window.addEventListener('hashchange', router);
     window.addEventListener('load', ()=>{
-      // 把 profile-wrap 調整為置中，因為移除了 avatar
-      const profileWrap = document.querySelector('.profile-wrap');
-      if (profileWrap) {
-        profileWrap.style.justifyContent = 'center';
-      }
-
       // 把 portfolio 卡片綁定點擊
       document.querySelectorAll('#page-portfolio .card').forEach(card=>{
         card.style.cursor='pointer';
@@ -310,19 +349,6 @@
 
     // 平滑滾動（小細節）
     document.documentElement.style.scrollBehavior = 'smooth';
-
-    // 滾動監聽：控制返回頂部按鈕
-    const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) { // 滾動超過 200px 顯示按鈕
-        backToTopBtn.classList.add('show');
-      } else {
-        backToTopBtn.classList.remove('show');
-      }
-    });
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' }); // 使用您已設定的平滑滾動
-    });
   </script>
 </body>
 </html>
