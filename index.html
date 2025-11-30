@@ -7,60 +7,66 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans JP', sans-serif; }
-body { background:#FFF8F0; color:#333; line-height:1.6; position:relative; scroll-behavior:smooth; }
+body { background:#FFF8F0; color:#333; line-height:1.6; scroll-behavior:smooth; }
 
-body::before {
-  content:"";
-  position:absolute; width:2000px; height:2000px;
-  background:radial-gradient(circle, #FFE4E1 2px, transparent 2px);
-  background-size:50px 50px; opacity:0.05; top:0; left:0; z-index:-1;
-}
-
+/* Header */
 header { background:#FFFFFF; padding:20px 0; box-shadow:0 2px 5px rgba(0,0,0,0.05); position:sticky; top:0; z-index:1000; }
-header nav { display:flex; justify-content:center; gap:30px; }
+header nav { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
 header nav a { color:#333; font-weight:500; transition:0.3s; text-decoration:none; }
 header nav a.active { color:#FF8C94; }
 header nav a:hover { color:#FF8C94; }
 
-section { padding:80px 20px; max-width:1000px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; }
+/* Section */
+section { padding:80px 20px; max-width:1200px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; }
 section.visible { opacity:1; transform:translateY(0); }
-
 h2 { text-align:center; margin-bottom:50px; font-weight:500; color:#FF8C94; }
 
-.about { display:flex; align-items:flex-start; flex-wrap:wrap; gap:30px; justify-content:center; }
-.about .avatar-emoji { font-size:180px; }
-.about p { max-width:700px; font-size:1.1rem; margin-bottom:15px; }
+/* About */
+.about { display:flex; align-items:center; justify-content:center; gap:50px; flex-wrap:wrap; }
+.about .avatar-emoji { font-size:200px; }
+.about .text { max-width:700px; }
+.about p { margin-bottom:20px; font-size:1.2rem; }
 
-.interests { display:flex; justify-content:center; flex-wrap:wrap; gap:15px; margin-top:30px; }
+.interests { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; margin-top:30px; }
 .interest { background:#FFE4E1; padding:10px 20px; border-radius:20px; font-size:1rem; text-align:center; transition:0.3s; }
 .interest:hover { transform:scale(1.1); }
 
 /* Skills */
-.skills { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; }
-.skill { background:#FFE4E1; padding:15px; border-radius:20px; font-size:0.95rem; text-align:center; width:100px; transition:0.3s; }
-.skill span { display:block; font-size:1.5rem; margin-bottom:5px; }
-.skill .level { height:6px; background:#FFB6B0; border-radius:3px; margin-top:5px; }
-.skill .level-inner { height:100%; background:#FF8C94; border-radius:3px; width:0%; transition:2s; }
+.skills { display:flex; justify-content:center; flex-wrap:wrap; gap:30px; margin-top:20px; }
+.skill { background:#FFE4E1; padding:20px; border-radius:20px; font-size:1rem; text-align:center; width:150px; }
+.skill span { display:block; font-size:2rem; margin-bottom:10px; }
+.skill .level { height:8px; background:#FFB6B0; border-radius:4px; margin-top:10px; }
+.skill .level-inner { height:100%; background:#FF8C94; border-radius:4px; width:0%; transition:2s; }
 
 /* Portfolio */
-.portfolio-filter { text-align:center; margin-bottom:40px; }
-.portfolio-filter button { margin:0 10px; padding:8px 20px; border:none; border-radius:20px; background:#FFE4E1; color:#FF8C94; cursor:pointer; transition:0.3s; }
+.portfolio-filter { text-align:center; margin-bottom:50px; }
+.portfolio-filter button { margin:0 10px; padding:10px 25px; border:none; border-radius:25px; background:#FFE4E1; color:#FF8C94; cursor:pointer; transition:0.3s; }
 .portfolio-filter button.active, .portfolio-filter button:hover { background:#FF8C94; color:white; }
 
-.portfolio { display:grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap:25px; }
-.portfolio-item { background:#FFF; border-radius:15px; padding:15px; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition:0.3s; cursor:pointer; }
+.portfolio { display:grid; grid-template-columns: repeat(3, 1fr); gap:30px; }
+.portfolio-item { background:#FFF; border-radius:15px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition:0.3s; cursor:pointer; }
 .portfolio-item:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.1); }
-.portfolio-item img { width:100%; border-radius:10px; margin-bottom:10px; }
-.portfolio-item h4 { font-size:1.05rem; margin-bottom:5px; color:#FF8C94; }
-.portfolio-item p { font-size:0.9rem; color:#555; }
+.portfolio-item img { width:100%; border-radius:10px; margin-bottom:15px; }
+.portfolio-item h4 { font-size:1.1rem; margin-bottom:8px; color:#FF8C94; }
+.portfolio-item p { font-size:0.95rem; color:#555; }
 .tag { display:inline-block; background:#FFE4E1; color:#FF8C94; padding:3px 10px; border-radius:12px; font-size:0.8rem; margin-right:5px; }
 
 /* Contact */
-.contact { text-align:center; }
-.contact a { display:inline-block; margin:10px; padding:12px 25px; background:#FF8C94; color:white; border-radius:10px; transition:0.3s; text-decoration:none; }
+.contact { text-align:center; margin-top:30px; }
+.contact a { display:inline-block; margin:10px; padding:12px 30px; background:#FF8C94; color:white; border-radius:15px; transition:0.3s; text-decoration:none; }
 .contact a:hover { background:#FFB6B0; }
 
 footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
+
+/* Responsive 手機版 */
+@media (max-width:900px) {
+  .about { flex-direction:column; text-align:center; }
+  .about .avatar-emoji { font-size:150px; }
+  .skills { justify-content:center; }
+  .skill { width:120px; padding:15px; }
+  .portfolio { grid-template-columns: 1fr; }
+  .portfolio-item { padding:15px; }
+}
 </style>
 </head>
 <body>
@@ -79,8 +85,10 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
   <h2>關於我</h2>
   <div class="about">
     <div class="avatar-emoji">👩‍🎨</div>
-    <p>嗨，我是王姳蓉（ENTP），喜歡探索各種創意的表達方式，熱愛學習新知並挑戰自我。我的學習歷程涵蓋程式設計與藝術創作：從 ESP32 的硬體實作，到素描、水彩、國畫、書法的藝術練習，每個領域都讓我充滿好奇與熱情。</p>
-    <p>我喜歡閱讀熱血漫畫、科幻小說與推理小說，也偶爾會追動漫。在日常生活中，我透過音樂放鬆心情，創作理念是「簡單而有深度」，目前短期目標是出國做交換生，希望拓展國際視野並持續創作分享作品。</p>
+    <div class="text">
+      <p>嗨，我是王姳蓉（ENTP），喜歡探索各種創意的表達方式，熱愛學習新知並挑戰自我。我的學習歷程涵蓋程式設計與藝術創作：從 ESP32 的硬體實作，到素描、水彩、國畫、書法的藝術練習，每個領域都讓我充滿好奇與熱情。</p>
+      <p>我喜歡閱讀熱血漫畫、科幻小說與推理小說，也偶爾會追動漫。在日常生活中，我透過音樂放鬆心情，創作理念是「簡單而有深度」，目前短期目標是出國做交換生，希望拓展國際視野並持續創作分享作品。</p>
+    </div>
   </div>
   <div class="interests">
     <div class="interest">📚 閱讀 — 熱血漫畫、科幻、推理小說</div>
