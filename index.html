@@ -1,103 +1,222 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>王姳蓉的個人網頁</title>
-  <style>
-    /* 全域樣式 */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { line-height: 1.6; color: #333; }
-    a { text-decoration: none; color: inherit; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王姳蓉的個人作品集</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans JP', sans-serif; }
+body { background:#FFF8F0; color:#333; line-height:1.6; position:relative; scroll-behavior:smooth; }
 
-    /* Header */
-    header { background: #4CAF50; color: white; padding: 20px 0; text-align: center; }
-    header nav a { margin: 0 15px; font-weight: bold; color: white; }
+body::before {
+  content:"";
+  position:absolute; width:2000px; height:2000px;
+  background:radial-gradient(circle, #FFE4E1 2px, transparent 2px);
+  background-size:50px 50px; opacity:0.05; top:0; left:0; z-index:-1;
+}
 
-    /* Section */
-    section { padding: 60px 20px; max-width: 1000px; margin: auto; }
-    h2 { text-align: center; margin-bottom: 40px; }
+header { background:#FFFFFF; padding:20px 0; box-shadow:0 2px 5px rgba(0,0,0,0.05); position:sticky; top:0; z-index:1000; }
+header nav { display:flex; justify-content:center; gap:30px; }
+header nav a { color:#333; font-weight:500; transition:0.3s; text-decoration:none; }
+header nav a.active { color:#FF8C94; }
+header nav a:hover { color:#FF8C94; }
 
-    /* About */
-    .about { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .about img { border-radius: 50%; width: 200px; height: 200px; object-fit: cover; }
-    .about p { flex: 1; font-size: 1.1rem; }
+section { padding:80px 20px; max-width:1000px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; }
+section.visible { opacity:1; transform:translateY(0); }
 
-    /* Skills */
-    .skills ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; list-style: none; }
-    .skills li { background: #f0f0f0; padding: 10px 20px; border-radius: 20px; }
+h2 { text-align:center; margin-bottom:50px; font-weight:500; color:#FF8C94; }
 
-    /* Portfolio */
-    .portfolio { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-    .portfolio img { width: 250px; height: 150px; object-fit: cover; border-radius: 10px; }
+.about { display:flex; align-items:flex-start; flex-wrap:wrap; gap:30px; justify-content:center; }
+.about .avatar-emoji { font-size:180px; }
+.about p { max-width:700px; font-size:1.1rem; margin-bottom:15px; }
 
-    /* Contact */
-    .contact a { display: inline-block; margin: 10px; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px; }
+.interests { display:flex; justify-content:center; flex-wrap:wrap; gap:15px; margin-top:30px; }
+.interest { background:#FFE4E1; padding:10px 20px; border-radius:20px; font-size:1rem; text-align:center; transition:0.3s; }
+.interest:hover { transform:scale(1.1); }
 
-    /* Footer */
-    footer { text-align: center; padding: 20px; background: #f4f4f4; }
-  </style>
+/* Skills */
+.skills { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; }
+.skill { background:#FFE4E1; padding:15px; border-radius:20px; font-size:0.95rem; text-align:center; width:100px; transition:0.3s; }
+.skill span { display:block; font-size:1.5rem; margin-bottom:5px; }
+.skill .level { height:6px; background:#FFB6B0; border-radius:3px; margin-top:5px; }
+.skill .level-inner { height:100%; background:#FF8C94; border-radius:3px; width:0%; transition:2s; }
+
+/* Portfolio */
+.portfolio-filter { text-align:center; margin-bottom:40px; }
+.portfolio-filter button { margin:0 10px; padding:8px 20px; border:none; border-radius:20px; background:#FFE4E1; color:#FF8C94; cursor:pointer; transition:0.3s; }
+.portfolio-filter button.active, .portfolio-filter button:hover { background:#FF8C94; color:white; }
+
+.portfolio { display:grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap:25px; }
+.portfolio-item { background:#FFF; border-radius:15px; padding:15px; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition:0.3s; cursor:pointer; }
+.portfolio-item:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.1); }
+.portfolio-item img { width:100%; border-radius:10px; margin-bottom:10px; }
+.portfolio-item h4 { font-size:1.05rem; margin-bottom:5px; color:#FF8C94; }
+.portfolio-item p { font-size:0.9rem; color:#555; }
+.tag { display:inline-block; background:#FFE4E1; color:#FF8C94; padding:3px 10px; border-radius:12px; font-size:0.8rem; margin-right:5px; }
+
+/* Contact */
+.contact { text-align:center; }
+.contact a { display:inline-block; margin:10px; padding:12px 25px; background:#FF8C94; color:white; border-radius:10px; transition:0.3s; text-decoration:none; }
+.contact a:hover { background:#FFB6B0; }
+
+footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <h1>王姳蓉</h1>
-    <nav>
-      <a href="#about">關於我</a>
-      <a href="#skills">技能</a>
-      <a href="#portfolio">作品集</a>
-      <a href="#contact">聯絡我</a>
-    </nav>
-  </header>
+<header>
+  <nav>
+    <a href="#about" class="nav-link">關於我</a>
+    <a href="#skills" class="nav-link">技能</a>
+    <a href="#portfolio" class="nav-link">作品集</a>
+    <a href="#contact" class="nav-link">聯絡我</a>
+  </nav>
+</header>
 
-  <!-- About -->
-  <section id="about">
-    <h2>關於我</h2>
-    <div class="about">
-      <img src="your-avatar.jpg" alt="大頭照">
-      <p>大家好，我是王姳蓉，目前是資管系學生。對網頁設計與程式開發充滿熱情，喜歡將想法實現成作品，也樂於學習新技術。</p>
+<!-- About -->
+<section id="about">
+  <h2>關於我</h2>
+  <div class="about">
+    <div class="avatar-emoji">👩‍🎨</div>
+    <p>嗨，我是王姳蓉（ENTP），喜歡探索各種創意的表達方式，熱愛學習新知並挑戰自我。我的學習歷程涵蓋程式設計與藝術創作：從 ESP32 的硬體實作，到素描、水彩、國畫、書法的藝術練習，每個領域都讓我充滿好奇與熱情。</p>
+    <p>我喜歡閱讀熱血漫畫、科幻小說與推理小說，也偶爾會追動漫。在日常生活中，我透過音樂放鬆心情，創作理念是「簡單而有深度」，目前短期目標是出國做交換生，希望拓展國際視野並持續創作分享作品。</p>
+  </div>
+  <div class="interests">
+    <div class="interest">📚 閱讀 — 熱血漫畫、科幻、推理小說</div>
+    <div class="interest">🎨 繪畫 — 素描、水彩、國畫、書法</div>
+    <div class="interest">🎬 動漫 — 偶爾追番</div>
+    <div class="interest">🎵 音樂 — 放鬆心情與創作靈感</div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <h2>技能</h2>
+  <div class="skills">
+    <div class="skill"><span>✏️</span>素描<div class="level"><div class="level-inner" style="width:90%"></div></div></div>
+    <div class="skill"><span>🖌️</span>水彩<div class="level"><div class="level-inner" style="width:80%"></div></div></div>
+    <div class="skill"><span>🖌️</span>國畫<div class="level"><div class="level-inner" style="width:75%"></div></div></div>
+    <div class="skill"><span>✒️</span>書法<div class="level"><div class="level-inner" style="width:85%"></div></div></div>
+    <div class="skill"><span>🎬</span>影片剪輯<div class="level"><div class="level-inner" style="width:70%"></div></div></div>
+    <div class="skill"><span>📊</span>PPT製作<div class="level"><div class="level-inner" style="width:80%"></div></div></div>
+  </div>
+</section>
+
+<!-- Portfolio -->
+<section id="portfolio">
+  <h2>作品集</h2>
+  <div class="portfolio-filter">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="program">程式類</button>
+    <button class="filter-btn" data-filter="art">美術類</button>
+    <button class="filter-btn" data-filter="writing">寫作類</button>
+  </div>
+
+  <div class="portfolio">
+    <!-- 程式類 -->
+    <div class="portfolio-item" data-category="program">
+      <img src="esp32_temp_humi.jpg" alt="ESP32感知空氣溫濕度">
+      <h4>ESP32 空氣感測</h4>
+      <p><span class="tag">ESP32</span><span class="tag">IoT</span>透過 ESP32 感知空氣溫濕度，並顯示在 OLED 上。</p>
     </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills">
-    <h2>技能</h2>
-    <div class="skills">
-      <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>Python</li>
-        <li>React</li>
-      </ul>
+    <div class="portfolio-item" data-category="program">
+      <img src="esp32_snake.jpg" alt="ESP32 貪吃蛇">
+      <h4>ESP32 貪吃蛇遊戲</h4>
+      <p><span class="tag">ESP32</span><span class="tag">遊戲</span>在 ESP32 上實作貪吃蛇遊戲，結合硬體與程式設計。</p>
     </div>
-  </section>
-
-  <!-- Portfolio -->
-  <section id="portfolio">
-    <h2>作品集</h2>
-    <div class="portfolio">
-      <img src="project1.jpg" alt="作品1">
-      <img src="project2.jpg" alt="作品2">
-      <img src="project3.jpg" alt="作品3">
+    <!-- 美術類 -->
+    <div class="portfolio-item" data-category="art">
+      <img src="sketch.jpg" alt="素描作品">
+      <h4>素描作品</h4>
+      <p><span class="tag">素描</span>多種題材素描練習，展現基本功與構圖能力。</p>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>聯絡我</h2>
-    <div class="contact">
-      <a href="mailto:example@email.com">電子郵件</a>
-      <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+    <div class="portfolio-item" data-category="art">
+      <img src="calligraphy.jpg" alt="書法作品">
+      <h4>書法作品</h4>
+      <p><span class="tag">書法</span>中華書法創作，結合傳統與現代風格。</p>
     </div>
-  </section>
+    <div class="portfolio-item" data-category="art">
+      <img src="watercolor.jpg" alt="水彩作品">
+      <h4>水彩作品</h4>
+      <p><span class="tag">水彩</span>柔和色彩的水彩作品，呈現日系簡約風格。</p>
+    </div>
+    <!-- 寫作類 -->
+    <div class="portfolio-item" data-category="writing">
+      <img src="reading_notes.jpg" alt="書籍閱讀心得">
+      <h4>閱讀心得</h4>
+      <p><span class="tag">心得</span>整理熱血漫畫、科幻小說、推理小說的閱讀筆記。</p>
+    </div>
+    <div class="portfolio-item" data-category="writing">
+      <img src="essay_competition.jpg" alt="作文比賽">
+      <h4>作文比賽作品</h4>
+      <p><span class="tag">作文</span>參加校內外作文比賽，提升文字表達與創意思考能力。</p>
+    </div>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 王姳蓉 All Rights Reserved
-  </footer>
+<section id="contact">
+  <h2>聯絡我</h2>
+  <div class="contact">
+    <a href="mailto:411435005@gms.ndhu.edu.tw">電子郵件</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 王姳蓉 All Rights Reserved
+</footer>
+
+<script>
+  // 滾動淡入動畫
+  const sections = document.querySelectorAll("section");
+  window.addEventListener("scroll", () => {
+    const triggerBottom = window.innerHeight * 0.85;
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if(sectionTop < triggerBottom){
+        section.classList.add("visible");
+      }
+    });
+  });
+
+  // 技能進度條動畫
+  const levelInners = document.querySelectorAll(".level-inner");
+  window.addEventListener("scroll", () => {
+    const skillsTop = document.getElementById("skills").getBoundingClientRect().top;
+    if(skillsTop < window.innerHeight){
+      levelInners.forEach(div => {
+        div.style.width = div.style.width || div.getAttribute("style");
+      });
+    }
+  });
+
+  // 作品集篩選
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const portfolioItems = document.querySelectorAll(".portfolio-item");
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const filter = btn.dataset.filter;
+      portfolioItems.forEach(item => {
+        item.style.display = (filter === "all" || item.dataset.category === filter) ? "block" : "none";
+      });
+    });
+  });
+
+  // 導航高亮
+  const navLinks = document.querySelectorAll(".nav-link");
+  window.addEventListener("scroll", () => {
+    let fromTop = window.scrollY + 200;
+    navLinks.forEach(link => {
+      const section = document.querySelector(link.hash);
+      if(section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop){
+        navLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
