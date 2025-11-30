@@ -7,7 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans JP', sans-serif; }
-body { background:#FFF8F0; color:#333; line-height:1.6; scroll-behavior:smooth; }
+body { background:#FFF8F0; color:#333; line-height:1.6; scroll-behavior:smooth; overflow-x:hidden; }
+
+/* 背景漂浮圖案 */
+.shape {
+  position:fixed;
+  width:30px;
+  height:30px;
+  opacity:0.3;
+  animation: float 20s linear infinite;
+  z-index:0;
+}
+.shape.circle { border-radius:50%; background:#FFB6B0; }
+.shape.heart::before { content:"❤️"; font-size:30px; display:block; }
+.shape.star::before { content:"⭐"; font-size:30px; display:block; }
+
+@keyframes float {
+  0% { transform:translateY(100vh) translateX(0); }
+  100% { transform:translateY(-100vh) translateX(200px); }
+}
 
 /* Header */
 header { background:#FFFFFF; padding:20px 0; box-shadow:0 2px 5px rgba(0,0,0,0.05); position:sticky; top:0; z-index:1000; }
@@ -17,7 +35,7 @@ header nav a.active { color:#FF8C94; }
 header nav a:hover { color:#FF8C94; }
 
 /* Section */
-section { padding:80px 20px; max-width:1200px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; }
+section { padding:80px 20px; max-width:1200px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; position:relative; z-index:1; }
 section.visible { opacity:1; transform:translateY(0); }
 h2 { text-align:center; margin-bottom:50px; font-weight:500; color:#FF8C94; }
 
@@ -70,6 +88,13 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
 </style>
 </head>
 <body>
+
+<!-- 背景漂浮圖案 -->
+<div class="shape circle" style="top:10%; left:5%; animation-duration:25s;"></div>
+<div class="shape circle" style="top:40%; left:80%; animation-duration:35s;"></div>
+<div class="shape heart" style="top:20%; left:50%; animation-duration:30s;"></div>
+<div class="shape star" style="top:70%; left:30%; animation-duration:40s;"></div>
+<div class="shape star" style="top:60%; left:70%; animation-duration:50s;"></div>
 
 <header>
   <nav>
