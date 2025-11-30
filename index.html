@@ -1,0 +1,394 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X, MapPin, Palette, Plane, Sparkles, Heart, Coffee } from 'lucide-react';
+
+export default function PersonalWebsite() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+      
+      // Update active section based on scroll position
+      const sections = ['home', 'about', 'portfolio', 'life', 'contact'];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 150 && rect.bottom >= 150;
+        }
+        return false;
+      });
+      
+      if (current) {
+        setActiveSection(current);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId) => {
+    setActiveSection(sectionId);
+    setMenuOpen(false);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        .float-animation {
+          animation: float 3s ease-in-out infinite;
+        }
+        .fade-in-up {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .pulse-animation {
+          animation: pulse 2s ease-in-out infinite;
+        }
+        .slide-in {
+          animation: slideIn 0.6s ease-out forwards;
+        }
+        .hover-lift {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+      `}</style>
+
+      {/* Floating Decorative Elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div 
+          className="absolute top-20 left-10 w-32 h-32 bg-orange-200/20 rounded-full blur-3xl float-animation"
+          style={{ animationDelay: '0s' }}
+        />
+        <div 
+          className="absolute top-40 right-20 w-40 h-40 bg-rose-200/20 rounded-full blur-3xl float-animation"
+          style={{ animationDelay: '1s' }}
+        />
+        <div 
+          className="absolute bottom-40 left-1/4 w-36 h-36 bg-amber-200/20 rounded-full blur-3xl float-animation"
+          style={{ animationDelay: '2s' }}
+        />
+      </div>
+
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/70 backdrop-blur-md z-50 shadow-sm border-b border-orange-100">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-orange-800 tracking-wider">
+            WMJ
+          </h1>
+          
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-8">
+            {['home', 'about', 'portfolio', 'life', 'contact'].map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className={`capitalize transition-all font-medium ${
+                  activeSection === section
+                    ? 'text-orange-600'
+                    : 'text-amber-800 hover:text-orange-500'
+                }`}
+              >
+                {section === 'home' ? '首頁' : section === 'about' ? '關於我' : section === 'portfolio' ? '作品集' : section === 'life' ? '生活分享' : '聯絡'}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-orange-800"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden bg-white/90 backdrop-blur-md border-t border-orange-100">
+            {['home', 'about', 'portfolio', 'life', 'contact'].map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className="block w-full text-left px-6 py-3 text-amber-800 hover:bg-orange-50 transition-colors"
+              >
+                {section === 'home' ? '首頁' : section === 'about' ? '關於我' : section === 'portfolio' ? '作品集' : section === 'life' ? '生活分享' : '聯絡'}
+              </button>
+            ))}
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <section id="home" className="min-h-screen flex items-center justify-center pt-20 px-6 relative">
+        <div className="text-center max-w-4xl fade-in-up">
+          <div className="mb-8 inline-block">
+            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-orange-200 to-rose-200 mx-auto flex items-center justify-center shadow-2xl float-animation">
+              <span className="text-5xl font-bold text-orange-800">WMJ</span>
+            </div>
+          </div>
+          <h2 className="text-6xl md:text-8xl font-light mb-4 text-orange-900 tracking-wide">
+            王姳蓉
+          </h2>
+          <p className="text-2xl md:text-3xl text-amber-700 mb-6 font-light">
+            Wang Ming Jung
+          </p>
+          <p className="text-lg text-amber-600 mb-8 max-w-2xl mx-auto leading-relaxed font-light">
+            ENTP | 用畫筆捕捉世界的溫度
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <span className="px-6 py-3 bg-white/60 backdrop-blur-sm text-orange-700 rounded-full text-sm font-medium shadow-md hover-lift">
+              🎨 藝術創作者
+            </span>
+            <span className="px-6 py-3 bg-white/60 backdrop-blur-sm text-orange-700 rounded-full text-sm font-medium shadow-md hover-lift">
+              ✈️ 旅行愛好者
+            </span>
+            <span className="px-6 py-3 bg-white/60 backdrop-blur-sm text-orange-700 rounded-full text-sm font-medium shadow-md hover-lift">
+              🌏 交換學生準備中
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="min-h-screen flex items-center py-20 px-6 bg-white/40 backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-5xl font-light mb-16 text-center text-orange-900">
+            關於我
+          </h3>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover-lift slide-in" style={{ animationDelay: '0.1s' }}>
+                <div className="flex items-start gap-4">
+                  <div className="bg-orange-100 p-3 rounded-2xl">
+                    <Sparkles className="text-orange-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-lg mb-3 text-orange-900">ENTP 性格特質</h4>
+                    <p className="text-amber-700 leading-relaxed font-light">充滿好奇心和創造力，喜歡探索新想法和可能性。熱衷於挑戰常規，用獨特視角看待世界。</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover-lift slide-in" style={{ animationDelay: '0.2s' }}>
+                <div className="flex items-start gap-4">
+                  <div className="bg-rose-100 p-3 rounded-2xl">
+                    <Palette className="text-rose-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-lg mb-3 text-orange-900">藝術與繪畫</h4>
+                    <p className="text-amber-700 leading-relaxed font-light">用色彩和線條表達內心世界，每一幅作品都是情感的流動和想像的具現化。</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg hover-lift slide-in" style={{ animationDelay: '0.3s' }}>
+                <div className="flex items-start gap-4">
+                  <div className="bg-amber-100 p-3 rounded-2xl">
+                    <Plane className="text-amber-600" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-lg mb-3 text-orange-900">旅行與探索</h4>
+                    <p className="text-amber-700 leading-relaxed font-light">相信每一次旅行都是自我發現的旅程。正在為出國交換做準備，期待在異國文化中成長。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-gradient-to-br from-orange-300 to-rose-300 p-10 rounded-3xl text-white shadow-2xl hover-lift">
+                <Coffee className="mb-4" size={32} />
+                <h4 className="text-2xl font-medium mb-4">短期目標</h4>
+                <p className="text-lg leading-relaxed font-light">
+                  準備出國交換計畫，希望能在不同的文化環境中拓展視野、提升語言能力，並將旅途中的靈感融入創作。
+                </p>
+              </div>
+
+              <div className="bg-white/80 backdrop-blur-sm p-10 rounded-3xl shadow-lg hover-lift">
+                <Heart className="text-orange-500 mb-4" size={32} />
+                <h4 className="text-xl font-medium mb-4 text-orange-900">個人理念</h4>
+                <p className="text-amber-700 leading-relaxed italic font-light">
+                  "生活就像一幅未完成的畫作，每一天都是新的一筆。我用旅行收集色彩，用繪畫記錄心情，用好奇心探索無限可能。"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Section */}
+      <section id="portfolio" className="min-h-screen py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-5xl font-light mb-16 text-center text-orange-900">
+            作品集
+          </h3>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { color: 'from-orange-200 to-amber-200' },
+              { color: 'from-rose-200 to-pink-200' },
+              { color: 'from-amber-200 to-yellow-200' },
+              { color: 'from-orange-200 to-rose-200' },
+              { color: 'from-amber-200 to-orange-200' },
+              { color: 'from-rose-200 to-orange-200' },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-3xl shadow-lg hover-lift"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className={`aspect-square bg-gradient-to-br ${item.color} flex items-center justify-center`}>
+                  <Palette className="text-white/40 group-hover:scale-110 transition-transform duration-300" size={64} />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                  <div className="p-6 text-white">
+                    <h4 className="font-medium text-lg mb-1">作品 {index + 1}</h4>
+                    <p className="text-sm text-white/80 font-light">創作描述與靈感來源</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Life Section */}
+      <section id="life" className="min-h-screen py-20 px-6 bg-white/40 backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-5xl font-light mb-16 text-center text-orange-900">
+            生活分享
+          </h3>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { 
+                title: '東京街頭速寫', 
+                location: '日本東京',
+                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZTZkMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM4YjY5NDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPuadseS6rOimlyDihpIg5a+M5aOr5bGx44O744K544Kr44Kk44OE44Oq44O8</L0V4dD48L3N2Zz4=',
+                description: '在東京的古老街區捕捉傳統與現代的完美融合，富士山的輪廓與晴空塔交織成獨特的天際線。'
+              },
+              { 
+                title: '首爾咖啡廳日常', 
+                location: '韓國首爾',
+                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2ZmZTRlMSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5YTZmNGYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPumfk+WchyDihpIg6KGX6YCT5ZKW5ZWh5busbOaXpeW4uA==</L0V4dD48L3N2Zz4=',
+                description: '首爾的街道充滿了溫暖的生活氣息，咖啡廳裡的每個角落都藏著故事，N首爾塔靜靜守護著這座城市。'
+              },
+              { 
+                title: '巴黎夕陽時刻', 
+                location: '法國巴黎',
+                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2ZmZTBkOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM4YjY5NDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPuW3tOm7jiDihpIg6Jmz54Sr6ZC15aGU44O744K744O844OL5rKz</L0V4dD48L3N2Zz4=',
+                description: '塞納河畔的金色黃昏，艾菲爾鐵塔與聖母院的剪影在夕陽中顯得格外浪漫，這就是巴黎最美的時刻。'
+              },
+              { 
+                title: '峇里島海灘寫生', 
+                location: '印尼峇里島',
+                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZTZkMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM4YjY5NDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPuWzsOmHjOWztiDihpIg54Gr5qOu5rSW5rW344O75a+66Zmi5YaZ55Sf</L0V4dD48L3N2Zz4=',
+                description: '熱帶天堂的寧靜海灘，椰樹搖曳、火山遠眺，古老的神廟與大自然和諧共存，這裡是心靈的避風港。'
+              },
+            ].map((post, index) => (
+              <div
+                key={index}
+                className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg overflow-hidden hover-lift"
+              >
+                <div className="h-64 relative overflow-hidden bg-gradient-to-br from-orange-100 to-amber-100">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-8">
+                  <h4 className="text-xl font-medium mb-2 text-orange-900">{post.title}</h4>
+                  <p className="text-amber-600 text-sm mb-4 flex items-center gap-2 font-light">
+                    <MapPin size={16} />
+                    {post.location}
+                  </p>
+                  <p className="text-amber-700 leading-relaxed font-light">
+                    {post.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="min-h-screen flex items-center py-20 px-6">
+        <div className="max-w-4xl mx-auto w-full text-center">
+          <h3 className="text-5xl font-light mb-16 text-orange-900">
+            聯絡我
+          </h3>
+          
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-12 hover-lift">
+            <p className="text-xl text-amber-700 mb-10 leading-relaxed font-light">
+              如果你對我的作品感興趣，或想要交流藝術、旅行的心得，<br />歡迎隨時與我聯繫！
+            </p>
+            
+            <div className="space-y-4 max-w-md mx-auto">
+              <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-6 rounded-2xl hover-lift">
+                <p className="text-amber-600 font-light">📧 Email</p>
+                <p className="font-medium text-orange-900">wmj.wang@example.com</p>
+              </div>
+              
+              <div className="bg-gradient-to-r from-rose-50 to-pink-50 p-6 rounded-2xl hover-lift">
+                <p className="text-amber-600 font-light">📱 Instagram</p>
+                <p className="font-medium text-orange-900">@wmj_art</p>
+              </div>
+            </div>
+
+            <div className="mt-10 pt-8 border-t border-orange-200">
+              <p className="text-amber-600 text-sm font-light">
+                © 2024 WMJ · Wang Yi-Rong. 用心創作，用愛分享。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
