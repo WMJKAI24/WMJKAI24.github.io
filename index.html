@@ -7,25 +7,7 @@ export default function PersonalWebsite() {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'portfolio', 'life', 'contact'];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 150 && rect.bottom >= 150;
-        }
-        return false;
-      });
-      
-      if (current) {
-        setActiveSection(current);
-      }
-    };
-    
+    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -33,16 +15,7 @@ export default function PersonalWebsite() {
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
     setMenuOpen(false);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -305,41 +278,17 @@ export default function PersonalWebsite() {
           
           <div className="grid md:grid-cols-2 gap-8">
             {[
-              { 
-                title: '東京街頭速寫', 
-                location: '日本東京',
-                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZTZkMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM4YjY5NDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPuadseS6rOimlyDihpIg5a+M5aOr5bGx44O744K544Kr44Kk44OE44Oq44O8</L0V4dD48L3N2Zz4=',
-                description: '在東京的古老街區捕捉傳統與現代的完美融合，富士山的輪廓與晴空塔交織成獨特的天際線。'
-              },
-              { 
-                title: '首爾咖啡廳日常', 
-                location: '韓國首爾',
-                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2ZmZTRlMSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5YTZmNGYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPumfk+WchyDihpIg6KGX6YCT5ZKW5ZWh5busbOaXpeW4uA==</L0V4dD48L3N2Zz4=',
-                description: '首爾的街道充滿了溫暖的生活氣息，咖啡廳裡的每個角落都藏著故事，N首爾塔靜靜守護著這座城市。'
-              },
-              { 
-                title: '巴黎夕陽時刻', 
-                location: '法國巴黎',
-                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2ZmZTBkOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM4YjY5NDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPuW3tOm7jiDihpIg6Jmz54Sr6ZC15aGU44O744K744O844OL5rKz</L0V4dD48L3N2Zz4=',
-                description: '塞納河畔的金色黃昏，艾菲爾鐵塔與聖母院的剪影在夕陽中顯得格外浪漫，這就是巴黎最美的時刻。'
-              },
-              { 
-                title: '峇里島海灘寫生', 
-                location: '印尼峇里島',
-                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZTZkMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM4YjY5NDIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPuWzsOmHjOWztiDihpIg54Gr5qOu5rSW5rW344O75a+66Zmi5YaZ55Sf</L0V4dD48L3N2Zz4=',
-                description: '熱帶天堂的寧靜海灘，椰樹搖曳、火山遠眺，古老的神廟與大自然和諧共存，這裡是心靈的避風港。'
-              },
+              { title: '東京街頭速寫', location: '日本東京', color: 'from-orange-300 to-amber-300' },
+              { title: '巴黎夕陽時刻', location: '法國巴黎', color: 'from-rose-300 to-pink-300' },
+              { title: '峇里島海灘寫生', location: '印尼峇里島', color: 'from-amber-300 to-yellow-300' },
+              { title: '首爾咖啡廳日常', location: '韓國首爾', color: 'from-orange-300 to-rose-300' },
             ].map((post, index) => (
               <div
                 key={index}
                 className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg overflow-hidden hover-lift"
               >
-                <div className="h-64 relative overflow-hidden bg-gradient-to-br from-orange-100 to-amber-100">
-                  <img 
-                    src={post.image} 
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
+                <div className={`h-48 bg-gradient-to-br ${post.color} flex items-center justify-center relative overflow-hidden`}>
+                  <MapPin className="text-white/60 float-animation" size={48} />
                 </div>
                 <div className="p-8">
                   <h4 className="text-xl font-medium mb-2 text-orange-900">{post.title}</h4>
@@ -348,7 +297,7 @@ export default function PersonalWebsite() {
                     {post.location}
                   </p>
                   <p className="text-amber-700 leading-relaxed font-light">
-                    {post.description}
+                    記錄旅途中的美好瞬間，每個地方都有獨特的故事和色彩等待被發現...
                   </p>
                 </div>
               </div>
