@@ -9,59 +9,70 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans JP', sans-serif; }
 body { background:#FFF8F0; color:#333; line-height:1.6; scroll-behavior:smooth; overflow-x:hidden; }
 
-/* 背景漂浮圖案 */
-.shape {
-  position:fixed;
-  width:30px;
-  height:30px;
-  opacity:0.3;
-  animation: float 20s linear infinite;
-  z-index:0;
+/* ---------- 開場動畫 ---------- */
+#splash {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #ffffff;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000;
 }
+svg { width: 300px; height: 100px; }
+.letter {
+  fill: none;
+  stroke: #ff6f61;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: draw 2s forwards;
+}
+#W { animation-delay: 0s; }
+#M { animation-delay: 2s; }
+#J { animation-delay: 4s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* ---------- 背景漂浮圖案 ---------- */
+.shape { position:fixed; width:30px; height:30px; opacity:0.3; animation: float 20s linear infinite; z-index:0; }
 .shape.circle { border-radius:50%; background:#FFB6B0; }
 .shape.heart::before { content:"❤️"; font-size:30px; display:block; }
-.shape.star::before { content:"⭐"; font-size:30px; display:block; }
 .shape.star::before { content:"🫧"; font-size:30px; display:block; }
+@keyframes float { 0% { transform:translateY(100vh) translateX(0); } 100% { transform:translateY(-100vh) translateX(200px); } }
 
-@keyframes float {
-  0% { transform:translateY(100vh) translateX(0); }
-  100% { transform:translateY(-100vh) translateX(200px); }
-}
-
-/* Header */
+/* ---------- Header ---------- */
 header { background:#FFFFFF; padding:20px 0; box-shadow:0 2px 5px rgba(0,0,0,0.05); position:sticky; top:0; z-index:1000; }
 header nav { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
 header nav a { color:#333; font-weight:500; transition:0.3s; text-decoration:none; }
 header nav a.active { color:#FF8C94; }
 header nav a:hover { color:#FF8C94; }
 
-/* Section */
+/* ---------- Section ---------- */
 section { padding:80px 20px; max-width:1200px; margin:auto; opacity:0; transform:translateY(30px); transition:1s; position:relative; z-index:1; }
 section.visible { opacity:1; transform:translateY(0); }
 h2 { text-align:center; margin-bottom:50px; font-weight:500; color:#FF8C94; }
 
-/* About */
+/* ---------- About ---------- */
 .about { display:flex; align-items:center; justify-content:center; gap:50px; flex-wrap:wrap; }
 .about .avatar-emoji { font-size:200px; }
 .about .text { max-width:700px; }
 .about p { margin-bottom:20px; font-size:1.2rem; }
-
 .interests { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; margin-top:30px; }
 .interest { background:#FFE4E1; padding:10px 20px; border-radius:20px; font-size:1rem; text-align:center; transition:0.3s; }
 .interest:hover { transform:scale(1.1); }
 
-/* Skills */
+/* ---------- Skills ---------- */
 .skills { display:flex; justify-content:center; flex-wrap:wrap; gap:30px; margin-top:20px; }
 .skill { background:#FFE4E1; padding:20px; border-radius:20px; font-size:1rem; text-align:center; width:150px; }
 .skill span { display:block; font-size:2rem; margin-bottom:10px; }
 .skill .level { height:8px; background:#FFB6B0; border-radius:4px; margin-top:10px; }
 .skill .level-inner { height:100%; background:#FF8C94; border-radius:4px; width:0%; transition:2s; }
 
-/* Portfolio */
+/* ---------- Portfolio ---------- */
 .portfolio-filter { text-align:center; margin-bottom:50px; }
 .portfolio-filter button { margin:0 10px; padding:10px 25px; border:none; border-radius:25px; background:#FFE4E1; color:#FF8C94; cursor:pointer; transition:0.3s; }
 .portfolio-filter button.active, .portfolio-filter button:hover { background:#FF8C94; color:white; }
-
 .portfolio { display:grid; grid-template-columns: repeat(3, 1fr); gap:30px; }
 .portfolio-item { background:#FFF; border-radius:15px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,0.05); transition:0.3s; cursor:pointer; }
 .portfolio-item:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.1); }
@@ -70,89 +81,27 @@ h2 { text-align:center; margin-bottom:50px; font-weight:500; color:#FF8C94; }
 .portfolio-item p { font-size:0.95rem; color:#555; }
 .tag { display:inline-block; background:#FFE4E1; color:#FF8C94; padding:3px 10px; border-radius:12px; font-size:0.8rem; margin-right:5px; }
 
-/* ---------- 推薦清單篩選按鈕 ---------- */
-.recommend-filter {
-  text-align: center;
-  margin-bottom: 40px;
-}
+/* ---------- 推薦清單 ---------- */
+.recommend-filter { text-align: center; margin-bottom: 40px; }
+.recommend-filter button { padding: 10px 25px; margin: 5px; border: none; border-radius: 25px; background: #FFE4E1; color: #FF8C94; cursor: pointer; font-size: 1rem; transition: 0.3s; }
+.recommend-filter button:hover, .recommend-filter button.active { background: #FF8C94; color: white; }
+.recommend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin-top: 30px; }
+.card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); transition: 0.3s; cursor: pointer; }
+.card:hover { transform: translateY(-5px); box-shadow:0 8px 20px rgba(0, 0, 0, 0.12); }
+.card-icon { font-size: 42px; margin-bottom: 12px; }
+.card h3 { color: #FF8C94; margin-bottom: 8px; font-size: 1.2rem; }
+.card p { margin-bottom: 12px; color: #444; }
+.card a { text-decoration: none; color: #FF8C94; font-weight: 600; transition: 0.3s; }
+.card a:hover { text-decoration: underline; }
 
-.recommend-filter button {
-  padding: 10px 25px;
-  margin: 5px;
-  border: none;
-  border-radius: 25px;
-  background: #FFE4E1;
-  color: #FF8C94;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: 0.3s;
-}
-
-.recommend-filter button:hover,
-.recommend-filter button.active {
-  background: #FF8C94;
-  color: white;
-}
-
-/* ---------- 卡片排列 ---------- */
-.recommend-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-}
-
-/* ---------- 卡片本體 ---------- */
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.card-icon {
-  font-size: 42px;
-  margin-bottom: 12px;
-}
-
-.card h3 {
-  color: #FF8C94;
-  margin-bottom: 8px;
-  font-size: 1.2rem;
-}
-
-.card p {
-  margin-bottom: 12px;
-  color: #444;
-}
-
-.card a {
-  text-decoration: none;
-  color: #FF8C94;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.card a:hover {
-  text-decoration: underline;
-}
-
-
-/* Contact */
+/* ---------- Contact ---------- */
 .contact { text-align:center; margin-top:30px; }
 .contact a { display:inline-block; margin:10px; padding:12px 30px; background:#FF8C94; color:white; border-radius:15px; transition:0.3s; text-decoration:none; }
 .contact a:hover { background:#FFB6B0; }
 
 footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
 
-/* Responsive 手機版 */
+/* ---------- Responsive ---------- */
 @media (max-width:900px) {
   .about { flex-direction:column; text-align:center; }
   .about .avatar-emoji { font-size:150px; }
@@ -164,6 +113,18 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
 </style>
 </head>
 <body>
+
+<!-- ---------- 開場動畫 ---------- -->
+<div id="splash">
+  <svg viewBox="0 0 300 100">
+    <path id="W" class="letter" d="M10,80 L30,10 L50,80 L70,10 L90,80"></path>
+    <path id="M" class="letter" d="M110,80 L110,10 L130,50 L150,10 L150,80"></path>
+    <path id="J" class="letter" d="M170,10 L190,10 L190,60 C190,80 170,80 170,60"></path>
+  </svg>
+</div>
+
+<!-- ---------- 原始頁面內容 ---------- -->
+<div id="mainContent" style="display:none;">
 
 <!-- 背景漂浮圖案 -->
 <div class="shape circle" style="top:10%; left:5%; animation-duration:25s;"></div>
@@ -464,6 +425,12 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
 </footer>
 
 <script>
+  // ---------- 開場動畫控制 ----------
+  setTimeout(() => {
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  }, 6500);
+  
   // 滾動淡入動畫
   const sections = document.querySelectorAll("section");
   window.addEventListener("scroll", () => {
