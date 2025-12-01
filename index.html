@@ -102,6 +102,7 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
     <a href="#about" class="nav-link">關於我</a>
     <a href="#skills" class="nav-link">技能</a>
     <a href="#portfolio" class="nav-link">作品集</a>
+    <a href="#recommend" class="nav-link">推薦清單</a>
     <a href="#contact" class="nav-link">聯絡我</a>
   </nav>
 </header>
@@ -112,7 +113,7 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
   <div class="about">
     <div class="avatar-emoji">👩‍🎨</div>
     <div class="text">
-      <p>嗨，我是王姳蓉（ENTP），喜歡探索各種創意的表達方式，熱愛學習新知並挑戰自我。我的學習歷程涵蓋程式設計與藝術創作：從 ESP32 的硬體實作，到素描、水彩、國畫、書法的藝術練習，每個領域都讓我充滿好奇與熱情。</p>
+      <p>嗨，我是王姳蓉（ENTP），我來自府城-台南，平時喜歡探索各種創意的表達方式，熱愛學習新知並挑戰自我。我的學習歷程涵蓋程式設計與藝術創作：從 ESP32 的硬體實作，到素描、水彩、國畫、書法的藝術練習，每個領域都讓我充滿好奇與熱情。</p>
       <p>我喜歡閱讀熱血漫畫、科幻小說與推理小說，也偶爾會追動漫。在日常生活中，我透過音樂放鬆心情，創作理念是「簡單而有深度」，目前短期目標是出國做交換生，希望拓展國際視野並持續創作分享作品。</p>
     </div>
   </div>
@@ -188,6 +189,128 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
     </div>
   </div>
 </section>
+  
+<!-- recommend -->
+<section id="recommend">
+  <h2>推薦清單</h2>
+
+  <!-- 分類篩選按鈕 -->
+  <div class="recommend-filter">
+    <button class="rec-btn active" data-filter="all">全部</button>
+    <button class="rec-btn" data-filter="book">書籍</button>
+    <button class="rec-btn" data-filter="exhibit">展覽</button>
+    <button class="rec-btn" data-filter="food">美食</button>
+    <button class="rec-btn" data-filter="travel">旅行</button>
+  </div>
+
+  <!-- 推薦項目卡片 -->
+  <div class="recommend-grid">
+
+    <!-- 書籍 BOOK -->
+    <div class="card" data-category="book">
+      <div class="card-icon">📚</div>
+      <h3>複眼人</h3>
+      <p>台灣小說，以巨觀視角呈現島嶼文明。</p>
+      <a href="https://www.books.com.tw/products/0010599111" target="_blank">查看詳情</a>
+    </div>
+
+    <div class="card" data-category="book">
+      <div class="card-icon">⚡</div>
+      <h3>波西傑克森</h3>
+      <p>希臘神話系青春冒險小說。</p>
+      <a href="https://www.books.com.tw/products/0010442747" target="_blank">查看詳情</a>
+    </div>
+
+    <div class="card" data-category="book">
+      <div class="card-icon">🪄</div>
+      <h3>哈利波特</h3>
+      <p>經典魔法世界系列小說。</p>
+      <a href="https://www.books.com.tw/products/0010755749" target="_blank">查看詳情</a>
+    </div>
+
+    <div class="card" data-category="book">
+      <div class="card-icon">🎒</div>
+      <h3>恆溫行李</h3>
+      <p>旅行與日常思緒的溫柔散文。</p>
+      <a href="https://www.books.com.tw/" target="_blank">查看詳情</a>
+    </div>
+
+    <!-- 展覽 EXHIBIT -->
+    <div class="card" data-category="exhibit">
+      <div class="card-icon">🏛️</div>
+      <h3>大都會展</h3>
+      <p>呈現世界級藝術收藏的精華展。</p>
+      <a href="https://www.metmuseum.org/" target="_blank">官方網站</a>
+    </div>
+
+    <div class="card" data-category="exhibit">
+      <div class="card-icon">🌻</div>
+      <h3>梵谷光影展</h3>
+      <p>沉浸式 360° 投影藝術體驗。</p>
+      <a href="https://vangoghexpo.com/" target="_blank">展覽資訊</a>
+    </div>
+
+    <div class="card" data-category="exhibit">
+      <div class="card-icon">🎨</div>
+      <h3>拉斐爾展</h3>
+      <p>文藝復興經典畫作特展。</p>
+      <a href="https://www.uffizi.it/en" target="_blank">官方資料</a>
+    </div>
+
+    <!-- 美食 FOOD -->
+    <div class="card" data-category="food">
+      <div class="card-icon">🍜</div>
+      <h3>度小月擔仔麵</h3>
+      <p>台南百年老店，以鮮甜高湯為特色。</p>
+      <a href="https://maps.google.com/?q=台南市中正路101號" target="_blank">Google 地圖</a>
+    </div>
+
+    <div class="card" data-category="food">
+      <div class="card-icon">🥩</div>
+      <h3>阿蓮牛肉湯</h3>
+      <p>台南經典現沖牛肉湯。</p>
+      <a href="https://maps.google.com/?q=台南市公園路57號" target="_blank">Google 地圖</a>
+    </div>
+
+    <div class="card" data-category="food">
+      <div class="card-icon">🥢</div>
+      <h3>福昇小食</h3>
+      <p>台南人氣小吃店，以鱔魚意麵知名。</p>
+      <a href="https://maps.google.com/?q=台南市國華街三段161號" target="_blank">Google 地圖</a>
+    </div>
+
+    <!-- 旅行 TRAVEL -->
+    <div class="card" data-category="travel">
+      <div class="card-icon">🍏</div>
+      <h3>青森</h3>
+      <p>雪國自然景色與蘋果聞名。</p>
+      <a href="https://www.japan-guide.com/e/e3750.html" target="_blank">旅遊指南</a>
+    </div>
+
+    <div class="card" data-category="travel">
+      <div class="card-icon">🏙️</div>
+      <h3>大阪</h3>
+      <p>美食與娛樂的城市，交通便利。</p>
+      <a href="https://www.osaka-info.jp/en/" target="_blank">官方旅遊網</a>
+    </div>
+
+    <div class="card" data-category="travel">
+      <div class="card-icon">🌴</div>
+      <h3>宿霧</h3>
+      <p>跳島、潛水、鯨鯊之旅首選。</p>
+      <a href="https://www.philippines.travel/" target="_blank">旅遊局網站</a>
+    </div>
+
+    <div class="card" data-category="travel">
+      <div class="card-icon">🏝️</div>
+      <h3>沖繩</h3>
+      <p>融合海島與日式文化的度假地。</p>
+      <a href="https://www.visitokinawa.jp/" target="_blank">官方網站</a>
+    </div>
+
+  </div>
+</section>
+
 
 <!-- Contact -->
 <section id="contact">
