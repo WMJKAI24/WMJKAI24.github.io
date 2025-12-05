@@ -35,10 +35,12 @@ svg { width: 80VW; height: AUTO; max-width: 800px;}
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
 /* ---------- 背景漂浮圖案 ---------- */
-.shape { position:fixed; width:30px; height:30px; opacity:0.3; animation: float 20s linear infinite; z-index:0; }
+.shape { position:fixed; width:50px; height:50px; opacity:0.3; animation: float 10s linear infinite; z-index:0; }
 .shape.circle { border-radius:50%; background:#FFB6B0; }
-.shape.heart::before { content:"❤️"; font-size:30px; display:block; }
-.shape.star::before { content:"🫧"; font-size:30px; display:block; }
+.shape.heart::before { content:"❤️"; font-size:50px; display:block; }
+.shape.heart::before { content:"🌟"; font-size:50px; display:block; }
+.shape.heart::before { content:"☁️"; font-size:50px; display:block; }
+.shape.star::before { content:"🫧"; font-size:50px; display:block; }
 @keyframes float { 0% { transform:translateY(100vh) translateX(0); } 100% { transform:translateY(-100vh) translateX(200px); } }
 
 /* ---------- Header ---------- */
@@ -149,7 +151,7 @@ footer { text-align:center; padding:20px; background:#FFF2F0; color:#555; }
   <div class="about">
     <div class="avatar-emoji">👩🏻‍🎨</div>
     <div class="text">
-      <p>Hi! 我是王姳蓉，我是一個辯論家形格的人(ENTP)，我來自府城-台南，平時喜歡探索各種創意的表達方式，熱愛學習新知並挑戰自我。我的學習歷程涵蓋程式設計與藝術創作：從 ESP32 的硬體實作，到素描、水彩、國畫、書法的藝術練習，每個領域都讓我充滿好奇與熱情。</p>
+      <p>Hi! 我是王姳蓉，我是一個辯論家性格的人(ENTP)，我來自府城-台南，平時喜歡探索各種創意的表達方式，熱愛學習新知並挑戰自我。我的學習歷程涵蓋程式設計與藝術創作：從 ESP32 的硬體實作，到素描、水彩、國畫、書法的藝術練習，每個領域都讓我充滿好奇與熱情。</p>
       <p>我喜歡閱讀熱血漫畫、科幻小說與推理小說，也偶爾會追動漫。在日常生活中，我透過音樂放鬆心情，創作理念是「簡單而有深度」，目前短期目標是出國做交換生，希望拓展國際視野並持續創作分享作品。</p>
     </div>
   </div>
